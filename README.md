@@ -64,14 +64,24 @@ git clone https://github.com/pablobfonseca/cyberpunk-theme.git ~/.config/nvim/pa
 
 ### Tmux Theme
 
-Add to your `~/.tmux.conf`:
+**Basic Setup:**
 
 ```bash
-# Source the cyberpunk theme
+# Add to your ~/.tmux.conf
 source-file ~/path/to/cyberpunk-theme/extras/tmux/cyberpunk.tmux
+```
 
-# Reload tmux config
-# tmux source-file ~/.tmux.conf
+**Features:**
+
+- 🔍 **Enhanced dim panels** - inactive panes dimmed for better focus
+- ⚡ **Cyberpunk color variables** - compatible with `#{@thm_*}` style configs
+- 🎯 **Active pane highlighting** with cyberpunk cyan borders
+- 📊 **Optional enhancements** available (CPU color coding, enhanced battery display, etc.)
+
+**Reload tmux config:**
+
+```bash
+tmux source-file ~/.tmux.conf
 ```
 
 ### Ghostty Theme
@@ -296,4 +306,3 @@ MIT License - Feel free to hack the gibson with this theme!
 ---
 
 **"The future is now. Make it neon."** ⚡🌃
-
