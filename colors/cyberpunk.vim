@@ -1,6 +1,6 @@
 " Cyberpunk Theme for Neovim
 " A neon-soaked cyberpunk theme with electric aesthetics
-" Maintainer: Shikamaru <shikamarunaraclaw@gmail.com>
+" Maintainer: Shikamaru <pablobfonseca@gmail.com>
 
 if exists('g:colors_name')
   hi clear

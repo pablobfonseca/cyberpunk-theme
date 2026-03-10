@@ -20,7 +20,7 @@
 💫 Foregrounds:    #e0e6f0 (main) • #b4bcc8 (dark) • #3b4458 (gutter)
 
 🔴 Neon Pink:      #ff007f    🔵 Electric Blue:   #0080ff
-🟢 Matrix Green:   #00ff41    🟣 Neon Purple:     #bf00ff  
+🟢 Matrix Green:   #00ff41    🟣 Neon Purple:     #bf00ff
 🟡 Cyber Yellow:   #ffff00    🟠 Neon Orange:     #ff8800
 🔷 Electric Cyan:  #00ffff    ⚪ Bright White:    #ffffff
 ```
@@ -33,7 +33,7 @@ Using [lazy.nvim](https://github.com/folke/lazy.nvim):
 
 ```lua
 {
-  'shikamarunaraclaw/cyberpunk-theme',
+  'pablobfonseca/cyberpunk-theme',
   priority = 1000,
   config = function()
     require('cyberpunk').setup({
@@ -48,7 +48,7 @@ Using [packer.nvim](https://github.com/wbthomason/packer.nvim):
 
 ```lua
 use {
-  'shikamarunaraclaw/cyberpunk-theme',
+  'pablobfonseca/cyberpunk-theme',
   config = function()
     require('cyberpunk').setup()
     vim.cmd('colorscheme cyberpunk')
@@ -57,8 +57,9 @@ use {
 ```
 
 Manual installation:
+
 ```bash
-git clone https://github.com/shikamarunaraclaw/cyberpunk-theme.git ~/.config/nvim/pack/plugins/start/cyberpunk-theme
+git clone https://github.com/pablobfonseca/cyberpunk-theme.git ~/.config/nvim/pack/plugins/start/cyberpunk-theme
 ```
 
 ### Tmux Theme
@@ -93,13 +94,13 @@ theme = cyberpunk
 require('cyberpunk').setup({
   -- Theme variant (future expansion)
   style = "storm", -- storm, night, neon
-  
+
   -- Transparency
   transparent = false,
-  
+
   -- Terminal colors
   terminal_colors = true,
-  
+
   -- Style customization
   styles = {
     comments = { italic = true },
@@ -109,19 +110,19 @@ require('cyberpunk').setup({
     sidebars = "dark", -- dark, transparent
     floats = "dark", -- dark, transparent
   },
-  
+
   -- Plugin integrations
   plugins = {
     -- Core editing
     treesitter = true,
     lsp = true,
-    
+
     -- File exploration
     telescope = true,
     nvim_tree = true,
     neo_tree = true,
     oil = true,
-    
+
     -- UI enhancements
     bufferline = true,
     lualine = true,
@@ -129,22 +130,22 @@ require('cyberpunk').setup({
     which_key = true,
     notify = true,
     noice = true,
-    
+
     -- Code completion
     cmp = true,
     blink_cmp = true,
-    
+
     -- Git integration
     gitsigns = true,
     fugitive = true,
-    
+
     -- Navigation
     flash = true,
     leap = true,
-    
+
     -- Terminal
     toggleterm = true,
-    
+
     -- Code display
     indent_blankline = true,
   }
@@ -163,7 +164,7 @@ require('cyberpunk').setup({
     colors.neon_pink = "#ff0080"  -- Custom neon pink
     colors.bg = "#000000"         -- Pure black background
   end,
-  
+
   on_highlights = function(highlights, colors)
     highlights.Comment = { fg = colors.neon_cyan, style = "italic" }
     highlights.Function = { fg = colors.neon_green, style = "bold" }
@@ -176,22 +177,26 @@ require('cyberpunk').setup({
 The theme includes first-class support for:
 
 ### 🔍 **Navigation & Search**
+
 - Telescope - Enhanced fuzzy finding with neon highlights
 - Flash/Leap - Electric motion highlighting
 - Which-key - Glowing key binding hints
 
 ### 📁 **File Management**
+
 - Nvim-tree - Cyberpunk file explorer styling
 - Neo-tree - Modern file tree with neon accents
 - Oil.nvim - Directory editing with electric highlights
 
 ### ⌨️ **Code Editing**
+
 - Treesitter - Semantic syntax highlighting
 - LSP - Intelligent code highlighting
 - nvim-cmp/Blink.cmp - Futuristic completion menus
 - Indent Blankline - Subtle indentation guides
 
 ### 🎨 **UI Enhancement**
+
 - Lualine - Electric statusline
 - Bufferline - Neon buffer tabs
 - Alpha - Cyberpunk dashboard
@@ -199,10 +204,12 @@ The theme includes first-class support for:
 - Noice - Enhanced UI components
 
 ### 🔧 **Git Integration**
+
 - GitSigns - Visual git status with neon colors
 - Fugitive - Git workflow enhancement
 
 ### 💻 **Terminal**
+
 - ToggleTerm - Floating terminal with themed borders
 - Built-in terminal - Full color palette support
 
@@ -211,7 +218,7 @@ The theme includes first-class support for:
 Optimized highlighting for:
 
 - **JavaScript/TypeScript** - Framework-aware highlighting
-- **Python** - Enhanced syntax distinction  
+- **Python** - Enhanced syntax distinction
 - **Rust** - Memory-safe neon aesthetics
 - **Go** - Clean, efficient color coding
 - **Lua** - Neovim configuration highlighting
@@ -241,7 +248,7 @@ Contributions welcome! Areas of focus:
 ### Development Setup
 
 ```bash
-git clone https://github.com/shikamarunaraclaw/cyberpunk-theme.git
+git clone https://github.com/pablobfonseca/cyberpunk-theme.git
 cd cyberpunk-theme
 
 # Test the theme
@@ -251,7 +258,7 @@ nvim +CyberpunkReload
 
 ## 📸 Screenshots
 
-> *Screenshots showing the theme in action across different file types and plugins*
+> _Screenshots showing the theme in action across different file types and plugins_
 
 **Lua Configuration** - Neovim setup with enhanced syntax highlighting
 **Python Development** - Modern syntax with LSP integration  
@@ -272,7 +279,7 @@ For the best experience:
 Inspired by and compatible with the cyberpunk aesthetic family:
 
 - Tokyo Night - Clean, modern dark theme
-- Synthwave '84 - Retro neon aesthetics  
+- Synthwave '84 - Retro neon aesthetics
 - Monokai Pro - Enhanced Monokai variants
 - Dracula - Popular vampire theme
 
@@ -289,3 +296,4 @@ MIT License - Feel free to hack the gibson with this theme!
 ---
 
 **"The future is now. Make it neon."** ⚡🌃
+
