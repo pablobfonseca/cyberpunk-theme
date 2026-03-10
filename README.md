@@ -64,14 +64,36 @@ git clone https://github.com/pablobfonseca/cyberpunk-theme.git ~/.config/nvim/pa
 
 ### Tmux Theme
 
-Add to your `~/.tmux.conf`:
+**Basic Setup:**
+```bash
+# Add to your ~/.tmux.conf
+source-file ~/path/to/cyberpunk-theme/extras/tmux/cyberpunk.tmux
+```
+
+**For Advanced Configurations:**
+If you have an existing tmux setup with Catppuccin-style variables, the theme provides full compatibility:
 
 ```bash
-# Source the cyberpunk theme
+# Add to your ~/.tmux.conf or ~/.config/tmux/tmux.conf  
 source-file ~/path/to/cyberpunk-theme/extras/tmux/cyberpunk.tmux
 
-# Reload tmux config
-# tmux source-file ~/.tmux.conf
+# Remove any conflicting color overrides (if present):
+# set -g pane-border-style "fg=#313244"
+# set -g pane-active-border-style "fg=#fab387"  
+# set -g window-style "bg=#11111b,fg=#6c7086"
+# set -g window-active-style "bg=#1e1e2e,fg=#cdd6f4"
+```
+
+**Features:**
+- 🎨 **Preserves your existing status bar** layout and functionality
+- 🔍 **Enhanced dim panels** - inactive panes dimmed for better focus  
+- ⚡ **Cyberpunk color variables** - compatible with `#{@thm_*}` style configs
+- 🎯 **Active pane highlighting** with cyberpunk cyan borders
+- 📊 **Optional enhancements** available (CPU color coding, enhanced battery display, etc.)
+
+**Reload tmux config:**
+```bash
+tmux source-file ~/.tmux.conf
 ```
 
 ### Ghostty Theme
