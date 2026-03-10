@@ -170,8 +170,3 @@ set-option -g display-panes-time 2000
 # Enhanced window switching with visual feedback
 # bind-key -r Tab select-window -t :+
 # bind-key -r BTab select-window -t :-
-
-echo "🌃 Cyberpunk tmux theme (advanced) loaded successfully!"
-echo "   ⚡ Status bar preserved with cyberpunk aesthetics"
-echo "   🎨 Dim panels enabled for better focus"  
-echo "   🔧 Optional enhancements available in theme file"
