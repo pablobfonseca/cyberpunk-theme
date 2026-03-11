@@ -92,7 +92,7 @@ set -g @cyberpunk_status_background "theme" # theme | none (transparent)
 **Features:**
 
 - 🔍 **Pane dimming** - inactive panes dimmed for better focus (toggleable)
-- ⚡ **Catppuccin-compatible variables** - `@thm_*` palette for status bar customization
+- ⚡ **Theme variables** - `@thm_*` palette for status bar customization
 - 🎯 **Neon pane borders** - active panes highlighted with cyan
 - 🎨 **Three variants** - storm (default), night (muted), neon (max saturation)
 - 🔧 **Toggleable features** - enable/disable individual styling features
