@@ -18,6 +18,20 @@ function plugins.setup(colors, config)
       TelescopeResultsTitle = { fg = colors.neon_cyan, style = "bold" },
       TelescopePreviewTitle = { fg = colors.neon_green, style = "bold" },
       TelescopePromptTitle = { fg = colors.neon_pink, style = "bold" },
+      -- pane backgrounds (respects transparent float setting)
+      TelescopeNormal = { fg = colors.fg, bg = float_bg },
+      TelescopePromptNormal = { fg = colors.fg, bg = float_bg },
+      TelescopeResultsNormal = { fg = colors.fg, bg = float_bg },
+      TelescopePreviewNormal = { fg = colors.fg, bg = float_bg },
+      -- per-pane border colours with background
+      TelescopePromptBorder = { fg = colors.neon_pink, bg = float_bg },
+      TelescopeResultsBorder = { fg = colors.neon_cyan, bg = float_bg },
+      TelescopePreviewBorder = { fg = colors.neon_green, bg = float_bg },
+      -- miscellaneous
+      TelescopePromptCounter = { fg = colors.comment },
+      TelescopeMultiIcon = { fg = colors.neon_orange },
+      TelescopeMultiSelection = { fg = colors.neon_purple, style = "bold" },
+      TelescopePreviewLine = { bg = colors.bg_visual },
     })
   end
 
