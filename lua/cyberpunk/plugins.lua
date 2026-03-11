@@ -123,6 +123,7 @@ function plugins.setup(colors, config)
   -- nvim-cmp (completion)
   if config.plugins.cmp then
     groups = vim.tbl_deep_extend("force", groups, {
+      CmpBorder = { fg = colors.neon_cyan },
       CmpItemAbbrDeprecated = { fg = colors.fg_dark, style = "strikethrough" },
       CmpItemAbbrMatch = { fg = colors.neon_cyan, style = "bold" },
       CmpItemAbbrMatchFuzzy = { fg = colors.neon_cyan, style = "bold" },
@@ -159,7 +160,7 @@ function plugins.setup(colors, config)
   if config.plugins.blink_cmp then
     groups = vim.tbl_deep_extend("force", groups, {
       BlinkCmpMenu = { fg = colors.fg, bg = float_bg },
-      BlinkCmpMenuBorder = { fg = colors.border },
+      BlinkCmpMenuBorder = { fg = colors.neon_cyan },
       BlinkCmpMenuSelection = { fg = colors.bg, bg = colors.neon_cyan },
       BlinkCmpLabel = { fg = colors.fg },
       BlinkCmpLabelMatch = { fg = colors.neon_cyan, style = "bold" },

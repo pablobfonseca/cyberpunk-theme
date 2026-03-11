@@ -95,6 +95,28 @@ function M.setup(opts)
   config = vim.tbl_deep_extend("force", config, opts.override)
 
   vim.diagnostic.config(config)
+
+  if opts.float then
+    M._style_cmp()
+  end
+end
+
+--- Override nvim-cmp window borders when the plugin is loaded.
+function M._style_cmp()
+  local ok, cmp = pcall(require, "cmp")
+  if not ok then
+    return
+  end
+
+  local border = make_border("CmpBorder")
+  local whl = "Normal:NormalFloat,FloatBorder:CmpBorder,CursorLine:Visual,Search:None"
+
+  cmp.setup {
+    window = {
+      completion = { border = border, winhighlight = whl },
+      documentation = { border = border, winhighlight = whl },
+    },
+  }
 end
 
 return M
