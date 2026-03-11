@@ -90,7 +90,7 @@ Copy the config to your Ghostty config directory:
 
 ```bash
 # Linux/macOS
-cp extras/ghostty/cyberpunk.conf ~/.config/ghostty/themes/
+cp extras/ghostty/cyberpunk ~/.config/ghostty/themes/
 
 # Then add to your main ghostty config:
 theme = cyberpunk
