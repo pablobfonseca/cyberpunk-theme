@@ -27,8 +27,8 @@ done < <(git status --porcelain 2>/dev/null)
 untracked=$(git ls-files --others --exclude-standard 2>/dev/null | wc -l | tr -d ' ')
 added=$((added + untracked))
 
-# Build output
-out="#[fg=#{@thm_green}]󰊢 ${branch}"
+# Build output — includes leading separator so it vanishes when not in a repo
+out="#[fg=#{@thm_green},dim] │ #[none]#[fg=#{@thm_green}]󰊢 ${branch}"
 [ "$added" -gt 0 ] && out="${out} #[fg=#{@thm_yellow}]+${added}"
 [ "$modified" -gt 0 ] && out="${out} #[fg=#{@thm_pink}]~${modified}"
 
