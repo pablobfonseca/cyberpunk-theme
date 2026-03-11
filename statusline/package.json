@@ -1,0 +1,21 @@
+{
+  "name": "@pablobfonseca/claude-cyberpunk-powerline",
+  "version": "1.0.0",
+  "description": "Claude Code statusline formatter with cyberpunk color palette",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pablobfonseca/cyberpunk-theme.git",
+    "directory": "statusline"
+  },
+  "bin": {
+    "claude-cyberpunk-powerline": "bin/cli.js"
+  },
+  "files": [
+    "bin/",
+    "lib/"
+  ],
+  "engines": {
+    "node": ">=18"
+  }
+}
