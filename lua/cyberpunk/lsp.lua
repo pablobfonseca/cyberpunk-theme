@@ -51,14 +51,30 @@ function M.setup(opts)
 
   if opts.float then
     config.float = {
-      border = "single",
+      border = make_border("FloatBorder"),
       source = true,
       max_width = 80,
       max_height = 20,
     }
 
     if vim.fn.has("nvim-0.11") == 1 then
-      vim.o.winborder = "single"
+      local orig_hover = vim.lsp.buf.hover
+      vim.lsp.buf.hover = function(o)
+        o = vim.tbl_extend("keep", o or {}, {
+          border = M.hover_border,
+          max_width = 80,
+        })
+        return orig_hover(o)
+      end
+
+      local orig_sig = vim.lsp.buf.signature_help
+      vim.lsp.buf.signature_help = function(o)
+        o = vim.tbl_extend("keep", o or {}, {
+          border = M.signature_border,
+          max_width = 80,
+        })
+        return orig_sig(o)
+      end
     else
       vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
         vim.lsp.handlers.hover, {
