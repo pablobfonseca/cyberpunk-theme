@@ -1,0 +1,34 @@
+# Cyberpunk Neon Theme for Ghostty Terminal
+# Usage: theme = Cyberpunk Neon
+
+# Background and foreground
+background = #0d0d0d
+foreground = #f0f6ff
+
+# Cursor
+cursor-color = #00ffff
+cursor-text = #000000
+
+# Selection
+selection-background = #1a0a2e
+selection-foreground = #f0f6ff
+
+# Normal colors (ANSI 0-7)
+palette = 0=#000000
+palette = 1=#ff0099
+palette = 2=#00ff00
+palette = 3=#ffff00
+palette = 4=#0099ff
+palette = 5=#dd00ff
+palette = 6=#00ffff
+palette = 7=#f0f6ff
+
+# Bright colors (ANSI 8-15)
+palette = 8=#303850
+palette = 9=#ff44aa
+palette = 10=#44ff44
+palette = 11=#ffff44
+palette = 12=#44aaff
+palette = 13=#ee44ff
+palette = 14=#44ffff
+palette = 15=#ffffff

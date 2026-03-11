@@ -1,0 +1,34 @@
+# Cyberpunk Night Theme for Ghostty Terminal
+# Usage: theme = Cyberpunk Night
+
+# Background and foreground
+background = #12171c
+foreground = #d0d8e8
+
+# Cursor
+cursor-color = #00cccc
+cursor-text = #05080d
+
+# Selection
+selection-background = #1e1530
+selection-foreground = #d0d8e8
+
+# Normal colors (ANSI 0-7)
+palette = 0=#05080d
+palette = 1=#cc0066
+palette = 2=#00cc33
+palette = 3=#cccc00
+palette = 4=#0066cc
+palette = 5=#9900cc
+palette = 6=#00cccc
+palette = 7=#d0d8e8
+
+# Bright colors (ANSI 8-15)
+palette = 8=#2d3850
+palette = 9=#dd4488
+palette = 10=#33dd66
+palette = 11=#dddd44
+palette = 12=#3388dd
+palette = 13=#bb44ee
+palette = 14=#44dddd
+palette = 15=#eef0f8
