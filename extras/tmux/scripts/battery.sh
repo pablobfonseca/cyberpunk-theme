@@ -39,4 +39,4 @@ else
   icon="󰁺"; color="#{@thm_red}"
 fi
 
-printf '#[fg=%s]%s %s%%%%' "$color" "$icon" "$pct"
+printf '#[fg=%s]%s %s%%' "$color" "$icon" "$pct"

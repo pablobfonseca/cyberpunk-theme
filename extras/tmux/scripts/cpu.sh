@@ -43,4 +43,4 @@ else
   bar="█▓▒░"
 fi
 
-printf '#[fg=%s]%s %s%%%%' "$color" "$bar" "$cpu"
+printf '#[fg=%s]%s %s%%' "$color" "$bar" "$cpu"
