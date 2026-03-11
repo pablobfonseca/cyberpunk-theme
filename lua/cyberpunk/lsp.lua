@@ -97,7 +97,7 @@ function M.setup(opts)
   vim.diagnostic.config(config)
 
   if opts.float then
-    M._style_cmp()
+    M._defer_style_cmp()
   end
 end
 
@@ -129,11 +129,11 @@ local kind_icons = {
   TypeParameter = "",
 }
 
---- Override nvim-cmp window borders and formatting when the plugin is loaded.
-function M._style_cmp()
+--- Apply cyberpunk styling to nvim-cmp (borders + kind icons).
+function M._apply_cmp_style()
   local ok, cmp = pcall(require, "cmp")
   if not ok then
-    return
+    return false
   end
 
   local border = make_border("CmpBorder")
@@ -162,6 +162,22 @@ function M._style_cmp()
       documentation = { border = border, winhighlight = whl },
     },
   }
+  return true
+end
+
+--- Defer cmp styling until the plugin is actually loaded.
+function M._defer_style_cmp()
+  -- Try immediately (cmp might already be loaded)
+  if M._apply_cmp_style() then
+    return
+  end
+  -- Wait for lazy-loaded cmp
+  vim.api.nvim_create_autocmd("InsertEnter", {
+    once = true,
+    callback = function()
+      vim.schedule(M._apply_cmp_style)
+    end,
+  })
 end
 
 return M
