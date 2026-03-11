@@ -267,6 +267,39 @@ function highlights.setup(colors, config)
     DiagnosticSignHint = { fg = colors.hint, style = "bold" },
   })
 
+  -- LSP UI highlights (always active, not guarded by config.plugins.lsp)
+  groups = vim.tbl_deep_extend("force", groups, {
+    -- Inlay hints — holographic purple ghost text
+    LspInlayHint = {
+      fg = util.blend(colors.hint, colors.bg, 0.45),
+      bg = util.blend(colors.hint, colors.bg, 0.06),
+      style = "italic",
+    },
+
+    -- References — neon trace (cyan highlight)
+    LspReferenceText = { bg = util.blend(colors.neon_cyan, colors.bg, 0.15) },
+    LspReferenceRead = {
+      bg = util.blend(colors.neon_cyan, colors.bg, 0.15),
+      style = "underline",
+      sp = colors.neon_cyan,
+    },
+    LspReferenceWrite = {
+      bg = util.blend(colors.neon_cyan, colors.bg, 0.15),
+      style = "bold,underline",
+      sp = colors.neon_cyan,
+    },
+
+    -- Code lens
+    LspCodeLens = { fg = colors.fg_gutter, style = "italic" },
+    LspCodeLensSeparator = { fg = colors.fg_gutter },
+
+    -- Signature help active parameter
+    LspSignatureActiveParameter = { fg = colors.neon_pink, style = "bold,underline" },
+
+    -- LSP info float border
+    LspInfoBorder = { fg = colors.border },
+  })
+
   -- Load plugin-specific highlights
   local plugin_highlights = require('cyberpunk.plugins')
   groups = vim.tbl_deep_extend("force", groups, plugin_highlights.setup(colors, config))
