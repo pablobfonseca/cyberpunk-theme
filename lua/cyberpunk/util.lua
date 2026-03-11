@@ -101,4 +101,18 @@ function util.terminal(colors)
   vim.g.terminal_color_15 = colors.bright_white
 end
 
+--- Blend a foreground color with a background at a given alpha.
+--- @param fg string Hex color
+--- @param bg string Hex color
+--- @param alpha number 0-1 (0 = fully bg, 1 = fully fg)
+--- @return string
+function util.blend(fg, bg, alpha)
+  local fg_r, fg_g, fg_b = util.hex_to_rgb(fg)
+  local bg_r, bg_g, bg_b = util.hex_to_rgb(bg)
+  local r = math.floor(fg_r * alpha + bg_r * (1 - alpha))
+  local g = math.floor(fg_g * alpha + bg_g * (1 - alpha))
+  local b = math.floor(fg_b * alpha + bg_b * (1 - alpha))
+  return string.format("#%02x%02x%02x", r, g, b)
+end
+
 return util

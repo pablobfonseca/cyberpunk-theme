@@ -257,14 +257,14 @@ function highlights.setup(colors, config)
     DiagnosticVirtualTextWarn = { fg = colors.warning, bg = util.darken(colors.warning, 0.9) },
     DiagnosticVirtualTextInfo = { fg = colors.info, bg = util.darken(colors.info, 0.9) },
     DiagnosticVirtualTextHint = { fg = colors.hint, bg = util.darken(colors.hint, 0.9) },
-    DiagnosticUnderlineError = { style = "underline", sp = colors.error },
-    DiagnosticUnderlineWarn = { style = "underline", sp = colors.warning },
-    DiagnosticUnderlineInfo = { style = "underline", sp = colors.info },
-    DiagnosticUnderlineHint = { style = "underline", sp = colors.hint },
-    DiagnosticSignError = { fg = colors.error },
-    DiagnosticSignWarn = { fg = colors.warning },
-    DiagnosticSignInfo = { fg = colors.info },
-    DiagnosticSignHint = { fg = colors.hint },
+    DiagnosticUnderlineError = { style = "undercurl", sp = colors.error },
+    DiagnosticUnderlineWarn = { style = "undercurl", sp = colors.warning },
+    DiagnosticUnderlineInfo = { style = "undercurl", sp = colors.info },
+    DiagnosticUnderlineHint = { style = "undercurl", sp = colors.hint },
+    DiagnosticSignError = { fg = colors.error, style = "bold" },
+    DiagnosticSignWarn = { fg = colors.warning, style = "bold" },
+    DiagnosticSignInfo = { fg = colors.info, style = "bold" },
+    DiagnosticSignHint = { fg = colors.hint, style = "bold" },
   })
 
   -- Load plugin-specific highlights
