@@ -1,13 +1,20 @@
 local util = {}
 local palette = require('cyberpunk.palette')
 
--- Convert hex to RGB
+--- Convert hex color string to RGB components.
+--- @param hex string Hex color (e.g. "#ff007f")
+--- @return number, number, number
 function util.hex_to_rgb(hex)
   hex = hex:gsub("#", "")
-  return tonumber("0x" .. hex:sub(1, 2)), tonumber("0x" .. hex:sub(3, 4)), tonumber("0x" .. hex:sub(5, 6))
+  return tonumber("0x" .. hex:sub(1, 2)),
+    tonumber("0x" .. hex:sub(3, 4)),
+    tonumber("0x" .. hex:sub(5, 6))
 end
 
--- Darken a color by a given amount (0-1)
+--- Darken a hex color by a factor (0 = unchanged, 1 = black).
+--- @param hex string
+--- @param amount number 0-1
+--- @return string
 function util.darken(hex, amount)
   local r, g, b = util.hex_to_rgb(hex)
   r = math.floor(r * (1 - amount))
@@ -16,7 +23,10 @@ function util.darken(hex, amount)
   return string.format("#%02x%02x%02x", r, g, b)
 end
 
--- Lighten a color by a given amount (0-1)
+--- Lighten a hex color by a factor (0 = unchanged, 1 = white).
+--- @param hex string
+--- @param amount number 0-1
+--- @return string
 function util.lighten(hex, amount)
   local r, g, b = util.hex_to_rgb(hex)
   r = math.min(255, math.floor(r + (255 - r) * amount))
@@ -25,28 +35,54 @@ function util.lighten(hex, amount)
   return string.format("#%02x%02x%02x", r, g, b)
 end
 
--- Apply highlight groups
+--- Resolve a `style` value into nvim_set_hl-compatible keys.
+--- Accepts:
+---   table  → { italic = true }        → returned as-is
+---   string → "bold" or "bold,italic"   → split and converted to { bold = true, italic = true }
+--- @param style string|table|nil
+--- @return table
+local function resolve_style(style)
+  if type(style) == "table" then
+    return style
+  end
+  if type(style) == "string" then
+    local out = {}
+    for token in style:gmatch("[^,]+") do
+      out[token:match("^%s*(.-)%s*$")] = true
+    end
+    return out
+  end
+  return {}
+end
+
+--- Apply highlight groups via nvim_set_hl.
+--- Each value is either a link target (string) or a table of highlight attrs.
+--- The special `style` key is expanded into boolean flags (bold, italic, etc.).
+--- @param groups table<string, string|table>
 function util.highlight(groups)
-  for group, colors in pairs(groups) do
-    if type(colors) == "string" then
-      vim.api.nvim_command("highlight! link " .. group .. " " .. colors)
+  for group, hl in pairs(groups) do
+    if type(hl) == "string" then
+      vim.api.nvim_set_hl(0, group, { link = hl })
     else
-      local style = colors.style and "gui=" .. colors.style or "gui=NONE"
-      local fg = colors.fg and "guifg=" .. colors.fg or "guifg=NONE"
-      local bg = colors.bg and "guibg=" .. colors.bg or "guibg=NONE"
-      local sp = colors.sp and "guisp=" .. colors.sp or ""
-      
-      local hl = "highlight " .. group .. " " .. style .. " " .. fg .. " " .. bg .. " " .. sp
-      vim.api.nvim_command(hl)
+      local opts = {}
+      for k, v in pairs(hl) do
+        if k == "style" then
+          for sk, sv in pairs(resolve_style(v)) do
+            opts[sk] = sv
+          end
+        else
+          opts[k] = v
+        end
+      end
+      vim.api.nvim_set_hl(0, group, opts)
     end
   end
 end
 
--- Set terminal colors
+--- Set terminal ANSI colors from the palette.
 function util.terminal()
   local colors = palette.colors.terminal
-  
-  -- Set Neovim terminal colors
+
   vim.g.terminal_color_0 = colors.black
   vim.g.terminal_color_1 = colors.red
   vim.g.terminal_color_2 = colors.green
@@ -63,18 +99,6 @@ function util.terminal()
   vim.g.terminal_color_13 = colors.bright_magenta
   vim.g.terminal_color_14 = colors.bright_cyan
   vim.g.terminal_color_15 = colors.bright_white
-end
-
--- Helper for creating highlight with fallback
-function util.hl(group, opts)
-  return { [group] = opts }
-end
-
--- Load highlight groups
-function util.load_highlights(highlights)
-  for group, opts in pairs(highlights) do
-    util.highlight(util.hl(group, opts))
-  end
 end
 
 return util
