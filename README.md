@@ -64,25 +64,38 @@ git clone https://github.com/pablobfonseca/cyberpunk-theme.git ~/.config/nvim/pa
 
 ### Tmux Theme
 
-**Basic Setup:**
+**With [TPM](https://github.com/tmux-plugins/tpm):**
+
+```bash
+set -g @plugin 'pablobfonseca/cyberpunk-theme'
+```
+
+**Manual (local clone):**
 
 ```bash
 # Add to your ~/.tmux.conf
-source-file ~/path/to/cyberpunk-theme/extras/tmux/cyberpunk.tmux
+run '~/path/to/cyberpunk-theme/cyberpunk.tmux'
+```
+
+**Options** (set before loading, all default to `"yes"`):
+
+```bash
+set -g @cyberpunk_flavor "storm"           # storm | night | neon
+set -g @cyberpunk_pane_dim "yes"           # dim inactive panes
+set -g @cyberpunk_pane_borders "yes"       # neon pane borders
+set -g @cyberpunk_window_status "yes"      # window tab styling
+set -g @cyberpunk_popup "yes"              # popup styling
+set -g @cyberpunk_messages "yes"           # message/mode/clock styling
+set -g @cyberpunk_status_background "theme" # theme | none (transparent)
 ```
 
 **Features:**
 
-- 🔍 **Enhanced dim panels** - inactive panes dimmed for better focus
-- ⚡ **Cyberpunk color variables** - compatible with `#{@thm_*}` style configs
-- 🎯 **Active pane highlighting** with cyberpunk cyan borders
-- 📊 **Optional enhancements** available (CPU color coding, enhanced battery display, etc.)
-
-**Reload tmux config:**
-
-```bash
-tmux source-file ~/.tmux.conf
-```
+- 🔍 **Pane dimming** - inactive panes dimmed for better focus (toggleable)
+- ⚡ **Catppuccin-compatible variables** - `@thm_*` palette for status bar customization
+- 🎯 **Neon pane borders** - active panes highlighted with cyan
+- 🎨 **Three variants** - storm (default), night (muted), neon (max saturation)
+- 🔧 **Toggleable features** - enable/disable individual styling features
 
 ### Ghostty Theme
 
