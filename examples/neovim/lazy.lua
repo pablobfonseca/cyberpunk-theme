@@ -37,6 +37,9 @@ return {
 			leap = true,
 			toggleterm = true,
 		},
+		lsp = {
+			ui = true, -- enable cyberpunk diagnostic signs (█▓▒░), virtual text, floats
+		},
 		-- Override individual colors
 		-- on_colors = function(colors)
 		--   colors.bg = "#000000"
