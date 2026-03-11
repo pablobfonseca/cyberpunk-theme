@@ -47,6 +47,9 @@ M.config = {
 --- @param opts table|nil
 function M.setup(opts)
   M.config = vim.tbl_deep_extend("force", M.config, opts or {})
+  if vim.g.colors_name == "cyberpunk" then
+    M.load()
+  end
 end
 
 --- Load the colorscheme: clear existing highlights, apply palette + config.
