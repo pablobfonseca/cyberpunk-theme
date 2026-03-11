@@ -101,7 +101,35 @@ function M.setup(opts)
   end
 end
 
---- Override nvim-cmp window borders when the plugin is loaded.
+local kind_icons = {
+  Text = "󰉿",
+  Method = "󰆧",
+  Function = "󰊕",
+  Constructor = "",
+  Field = "󰜢",
+  Variable = "󰀫",
+  Class = "󰠱",
+  Interface = "",
+  Module = "",
+  Property = "󰜢",
+  Unit = "󰑭",
+  Value = "󰎠",
+  Enum = "",
+  Keyword = "󰌋",
+  Snippet = "",
+  Color = "󰏘",
+  File = "󰈙",
+  Reference = "󰈇",
+  Folder = "󰉋",
+  EnumMember = "",
+  Constant = "󰏿",
+  Struct = "󰙅",
+  Event = "",
+  Operator = "󰆕",
+  TypeParameter = "",
+}
+
+--- Override nvim-cmp window borders and formatting when the plugin is loaded.
 function M._style_cmp()
   local ok, cmp = pcall(require, "cmp")
   if not ok then
@@ -111,7 +139,24 @@ function M._style_cmp()
   local border = make_border("CmpBorder")
   local whl = "Normal:NormalFloat,FloatBorder:CmpBorder,CursorLine:Visual,Search:None"
 
+  local has_devicons, devicons = pcall(require, "nvim-web-devicons")
+
   cmp.setup {
+    formatting = {
+      fields = { "kind", "abbr", "menu" },
+      format = function(_, vim_item)
+        if has_devicons and (vim_item.kind == "File" or vim_item.kind == "Folder") then
+          local icon, hl = devicons.get_icon(vim_item.abbr, nil, { default = true })
+          if icon then
+            vim_item.kind = icon .. " "
+            vim_item.kind_hl_group = hl
+            return vim_item
+          end
+        end
+        vim_item.kind = (kind_icons[vim_item.kind] or "") .. " "
+        return vim_item
+      end,
+    },
     window = {
       completion = { border = border, winhighlight = whl },
       documentation = { border = border, winhighlight = whl },
