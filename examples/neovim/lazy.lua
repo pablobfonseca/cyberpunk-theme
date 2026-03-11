@@ -74,3 +74,15 @@ return {
 -- 		vim.cmd("colorscheme cyberpunk-neon")
 -- 	end,
 -- }
+
+-- Colored LSP float borders (0.11+, optional)
+-- By default lsp.ui uses winborder for all floats. To get per-float neon
+-- colors (cyan hover, pink signature), pass the border tables in your keymaps:
+--
+-- local lsp = require("cyberpunk.lsp")
+-- vim.keymap.set("n", "K", function()
+--   vim.lsp.buf.hover { border = lsp.hover_border }
+-- end)
+-- vim.keymap.set({ "n", "i" }, "<M-K>", function()
+--   vim.lsp.buf.signature_help { border = lsp.signature_border }
+-- end)

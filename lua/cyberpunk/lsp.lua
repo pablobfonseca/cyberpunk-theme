@@ -7,6 +7,11 @@ local function make_border(hl)
   }
 end
 
+--- Pre-built border tables for use in keymaps (0.11+).
+--- Example: vim.lsp.buf.hover { border = require("cyberpunk.lsp").hover_border }
+M.hover_border = make_border("LspHoverBorder")
+M.signature_border = make_border("LspSignatureHelpBorder")
+
 local defaults = {
   signs = true,
   virtual_text = true,
@@ -46,25 +51,28 @@ function M.setup(opts)
 
   if opts.float then
     config.float = {
-      border = "rounded",
+      border = "single",
       source = true,
       max_width = 80,
       max_height = 20,
     }
 
-    vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-      vim.lsp.handlers.hover, {
-        border = make_border("LspHoverBorder"),
-        max_width = 80,
-      }
-    )
-
-    vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
-      vim.lsp.handlers.signature_help, {
-        border = make_border("LspSignatureHelpBorder"),
-        max_width = 80,
-      }
-    )
+    if vim.fn.has("nvim-0.11") == 1 then
+      vim.o.winborder = "single"
+    else
+      vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+        vim.lsp.handlers.hover, {
+          border = M.hover_border,
+          max_width = 80,
+        }
+      )
+      vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
+        vim.lsp.handlers.signature_help, {
+          border = M.signature_border,
+          max_width = 80,
+        }
+      )
+    end
   end
 
   -- Apply user overrides last
