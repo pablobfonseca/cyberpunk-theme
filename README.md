@@ -4,6 +4,8 @@
 
 **Welcome to the grid.** This theme brings the electric, neon-drenched aesthetics of cyberpunk to your development environment. Built with modern Neovim APIs and designed for the latest terminal technologies.
 
+![Cyberpunk Theme - Storm variant](docs/screenshots/storm-editor.png)
+
 ## ✨ Features
 
 - 🎨 **Full spectrum neon palette** - Electric pinks, cyan blues, matrix greens, and purple hazes
@@ -306,12 +308,17 @@ nvim +CyberpunkReload
 
 ## 📸 Screenshots
 
-> _Screenshots showing the theme in action across different file types and plugins_
+### Storm (default)
 
-**Lua Configuration** - Neovim setup with enhanced syntax highlighting
-**Python Development** - Modern syntax with LSP integration  
-**Terminal Workflow** - tmux and Ghostty with matching aesthetics
-**Plugin Showcase** - Telescope, tree view, and completion menus
+**Telescope** — fuzzy finder with file preview
+
+![Telescope](docs/screenshots/storm-telescope.png)
+
+**LSP Diagnostics** — inline warnings with tmux statusbar
+
+![LSP Diagnostics](docs/screenshots/storm-diagnostics.png)
+
+<!-- TODO: add night and neon variant screenshots -->
 
 ## 🛠️ Terminal Requirements
 
