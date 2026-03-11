@@ -115,14 +115,23 @@ To override, set your own `status-left`/`status-right` after loading the theme.
 
 ### Ghostty Theme
 
-Copy the config to your Ghostty config directory:
+Copy the theme files to your Ghostty themes directory:
 
 ```bash
-# Linux/macOS
-cp extras/ghostty/cyberpunk ~/.config/ghostty/themes/
+cp extras/ghostty/Cyberpunk\ * ~/.config/ghostty/themes/
+```
 
-# Then add to your main ghostty config:
-theme = cyberpunk
+Then set your variant in your Ghostty config:
+
+```
+theme = Cyberpunk Storm
+# or: Cyberpunk Night, Cyberpunk Neon
+```
+
+Supports automatic light/dark switching:
+
+```
+theme = dark:Cyberpunk Night,light:Cyberpunk Storm
 ```
 
 ## ⚙️ Configuration
