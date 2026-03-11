@@ -16,6 +16,9 @@ M.config = {
     floats = "dark",       -- "dark" | "transparent"
   },
   dim_inactive = false,
+  lsp = {
+    ui = false,  -- opt-in: configure diagnostic signs, virtual text, floats
+  },
   on_colors = nil,         -- function(colors) end
   on_highlights = nil,     -- function(highlights, colors) end
 
@@ -84,6 +87,10 @@ function M.load()
 
   if M.config.terminal_colors then
     util.terminal(colors)
+  end
+
+  if M.config.lsp and M.config.lsp.ui then
+    require('cyberpunk.lsp').setup(M.config.lsp)
   end
 end
 
