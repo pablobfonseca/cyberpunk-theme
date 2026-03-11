@@ -95,57 +95,10 @@ function M.setup(opts)
   config = vim.tbl_deep_extend("force", config, opts.override)
 
   vim.diagnostic.config(config)
-
-end
-
-local kind_icons = {
-  Text = "󰉿",
-  Method = "󰆧",
-  Function = "󰊕",
-  Constructor = "",
-  Field = "󰜢",
-  Variable = "󰀫",
-  Class = "󰠱",
-  Interface = "",
-  Module = "",
-  Property = "󰜢",
-  Unit = "󰑭",
-  Value = "󰎠",
-  Enum = "",
-  Keyword = "󰌋",
-  Snippet = "",
-  Color = "󰏘",
-  File = "󰈙",
-  Reference = "󰈇",
-  Folder = "󰉋",
-  EnumMember = "",
-  Constant = "󰏿",
-  Struct = "󰙅",
-  Event = "",
-  Operator = "󰆕",
-  TypeParameter = "",
-}
-
---- Returns a formatting function for nvim-cmp with Nerd Font kind icons.
---- Uses nvim-web-devicons for File/Folder items when available.
---- Usage: formatting = { fields = { "kind", "abbr", "menu" }, format = require("cyberpunk.lsp").cmp_format() }
-function M.cmp_format()
-  local has_devicons, devicons = pcall(require, "nvim-web-devicons")
-  return function(_, vim_item)
-    if has_devicons and (vim_item.kind == "File" or vim_item.kind == "Folder") then
-      local icon, hl = devicons.get_icon(vim_item.abbr, nil, { default = true })
-      if icon then
-        vim_item.kind = icon .. " "
-        vim_item.kind_hl_group = hl
-        return vim_item
-      end
-    end
-    vim_item.kind = (kind_icons[vim_item.kind] or "") .. " "
-    return vim_item
-  end
 end
 
 --- Returns a border table for use in nvim-cmp window config.
+--- Usage: window = { completion = { border = require("cyberpunk.lsp").cmp_border() } }
 function M.cmp_border()
   return make_border("CmpBorder")
 end

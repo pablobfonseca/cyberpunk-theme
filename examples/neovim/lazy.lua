@@ -78,17 +78,12 @@ return {
 -- LSP float borders (automatic with lsp.ui = true)
 -- Hover gets cyan borders, signature help gets pink borders.
 
--- nvim-cmp integration (add to your cmp plugin config):
+-- nvim-cmp border integration (add to your cmp plugin config):
 --
--- local lsp = require("cyberpunk.lsp")
--- local border = lsp.cmp_border()
+-- local border = require("cyberpunk.lsp").cmp_border()
 -- local whl = "Normal:NormalFloat,FloatBorder:CmpBorder,CursorLine:Visual,Search:None"
 --
 -- cmp.setup {
---   formatting = {
---     fields = { "kind", "abbr", "menu" },
---     format = lsp.cmp_format(),
---   },
 --   window = {
 --     completion = { border = border, winhighlight = whl },
 --     documentation = { border = border, winhighlight = whl },
