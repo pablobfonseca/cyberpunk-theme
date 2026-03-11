@@ -136,11 +136,11 @@ set-option -g display-panes-time 2000
 
 # Enhanced CPU display with color coding
 # Replaces: #{cpu_percentage}
-# set -ga status-right "#{?#{e|>=:80,#{cpu_percentage}},#[fg=#{@thm_red}],#{?#{e|>=:60,#{cpu_percentage}},#[fg=#{@thm_yellow}],#[fg=#{@thm_green}]}}#{@cpu_icon} #{cpu_percentage}#[fg=#{@thm_text}] "
+# set -ga status-right "│ #{?#{e|>=:80,#{cpu_percentage}},#[fg=#{@thm_red}],#{?#{e|>=:60,#{cpu_percentage}},#[fg=#{@thm_yellow}],#[fg=#{@thm_green}]}}#{@cpu_icon} #{cpu_percentage}#[fg=#{@thm_text}] "
 
 # Enhanced battery with more color states  
 # Replaces your battery section with smoother color transitions
-# set -ga status-right "#{?#{e|>=:20,#{battery_percentage}},#{?#{e|>=:50,#{battery_percentage}},#[fg=#{@thm_green}],#[fg=#{@thm_yellow}]},#[fg=#{@thm_red},bold]} #{battery_icon} #{battery_percentage} "
+# set -ga status-right "#{?#{e|>=:20,#{battery_percentage}},#{?#{e|>=:50,#{battery_percentage}},#[fg=#{@thm_green}],#[fg=#{@thm_yellow}]},#[fg=#{@thm_red}]#[bold]} #{battery_icon} #{battery_percentage} "
 
 # Enhanced session name with git branch (if in git repo)
 # Adds subtle git context to your session display
@@ -164,8 +164,8 @@ set-option -g display-panes-time 2000
 # bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel "pbcopy"
 
 # Cyberpunk-themed popup window styling (for your existing popups)
-# set -g popup-style "fg=#{@thm_text},bg=#{@thm_surface0}"
-# set -g popup-border-style "fg=#{@thm_cyan}"
+set -g popup-style "fg=#{@thm_text},bg=#{@thm_surface0}"
+set -g popup-border-style "fg=#{@thm_cyan}"
 
 # Enhanced window switching with visual feedback
 # bind-key -r Tab select-window -t :+
