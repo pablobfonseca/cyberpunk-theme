@@ -77,22 +77,38 @@ set -g @plugin 'pablobfonseca/cyberpunk-theme'
 run '~/path/to/cyberpunk-theme/cyberpunk.tmux'
 ```
 
-**Options** (set before loading, all default to `"yes"`):
+**Options** (set before loading):
 
 ```bash
 set -g @cyberpunk_flavor "storm"           # storm | night | neon
 set -g @cyberpunk_pane_dim "yes"           # dim inactive panes
 set -g @cyberpunk_pane_borders "yes"       # neon pane borders
-set -g @cyberpunk_window_status "yes"      # window tab styling
 set -g @cyberpunk_popup "yes"              # popup styling
 set -g @cyberpunk_messages "yes"           # message/mode/clock styling
 set -g @cyberpunk_status_background "theme" # theme | none (transparent)
 ```
 
+**Built-in Glitch Statusbar:**
+
+The theme ships a full statusbar out of the box — no manual configuration needed.
+
+```
+│ ⌘ session │  dir │ 󰊢 branch +3 ~1 │     1:zsh│2:nvim│3:logs     │ 󰖩 │ █▓▒░ 23% │ 󰍛 2.1G │ 󰁹 85% │
+```
+
+- **Left:** session name (prefix-aware), current directory, git branch + dirty state, zoom indicator
+- **Right:** online/offline, CPU % with color-coded bar, memory usage, battery %
+- **Center:** windows with thin separators, active window highlighted
+- All gadgets color-shift at warning thresholds (high CPU, low battery, offline)
+- Git info and its separator auto-hide when not in a repo
+- System scripts bundled — no external plugin dependencies (supports macOS + Linux)
+
+To override, set your own `status-left`/`status-right` after loading the theme.
+
 **Features:**
 
 - 🔍 **Pane dimming** - inactive panes dimmed for better focus (toggleable)
-- ⚡ **Theme variables** - `@thm_*` palette for status bar customization
+- ⚡ **Theme variables** - `@thm_*` palette for custom status bar overrides
 - 🎯 **Neon pane borders** - active panes highlighted with cyan
 - 🎨 **Three variants** - storm (default), night (muted), neon (max saturation)
 - 🔧 **Toggleable features** - enable/disable individual styling features
