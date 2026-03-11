@@ -5,113 +5,53 @@
 # CYBERPUNK THEME
 # ===================
 
-# Include the cyberpunk color scheme
-include = cyberpunk
+# Load the cyberpunk color scheme (copy extras/ghostty/cyberpunk to ~/.config/ghostty/themes/)
+config-file = cyberpunk
 
 # ===================
-# FONT CONFIGURATION  
+# FONT
 # ===================
 
-# Use a programming font optimized for coding
-# Choose one of these popular options:
 font-family = "JetBrains Mono"
 # font-family = "Fira Code"
-# font-family = "Hack"
 # font-family = "Cascadia Code"
-# font-family = "Source Code Pro"
-
 font-size = 14
-font-weight = normal
 
 # ===================
-# WINDOW SETTINGS
+# WINDOW
 # ===================
 
-# Window decorations
-window-decoration = true
-window-title-font-family = "system"
-
-# Padding for that clean cyberpunk look
+window-decoration = auto
 window-padding-x = 10
 window-padding-y = 8
 
-# Transparency (optional - for that futuristic glass effect)
-# window-opacity = 0.95
+# Uncomment for a translucent terminal
+# background-opacity = 0.95
 # background-blur = true
 
 # ===================
-# TERMINAL BEHAVIOR
+# CURSOR
 # ===================
 
-# Shell configuration
-shell = /bin/bash
-# shell = /bin/zsh
-
-# Terminal capabilities
-color-mode = true-color
 cursor-style = block
 cursor-style-blink = true
 
-# Scrollback
+# ===================
+# BEHAVIOR
+# ===================
+
 scrollback-limit = 10000
-scroll-multiplier = 3
-
-# ===================
-# INTERACTION
-# ===================
-
-# Mouse support
-mouse = true
-click-repeat-delay = 400
-
-# Copy/paste behavior
 copy-on-select = true
-strip-ansi-escape-codes = false
-
-# URL handling  
-auto-detect-url = true
-url-style = underline
+mouse-scroll-multiplier = 3
 
 # ===================
-# TABS (if using multiple terminals)
+# ENVIRONMENT
 # ===================
 
-tab-bar = true
-tab-bar-style = fancy
-tab-close-button = true
-
-# ===================
-# CYBERPUNK ENHANCEMENTS
-# ===================
-
-# Environment variables for better color support
-env = TERM=xterm-256color
 env = COLORTERM=truecolor
 
-# Custom title with cyberpunk flair
-title = "🌃 CYBERPUNK TERMINAL // {command}"
-
-# Performance optimizations for smooth neon rendering
-vsync = true
-fps = 60
-
 # ===================
-# OPTIONAL EFFECTS
+# PERFORMANCE
 # ===================
-# Uncomment for additional cyberpunk atmosphere
 
-# # CRT-style scanlines
-# scanlines = true
-# scanlines-opacity = 0.1
-
-# # Text rendering optimizations
-# text-rendering = crisp
-
-# # Subtle glow effect (experimental)
-# text-shadow = true  
-# text-shadow-color = 00ffff
-# text-shadow-radius = 1
-
-# # Neon bloom for bright colors
-# bloom = true
-# bloom-intensity = 0.2
+window-vsync = true

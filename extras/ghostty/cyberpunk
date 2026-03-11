@@ -2,16 +2,16 @@
 # Place in ~/.config/ghostty/themes/
 
 # Background and foreground
-background = 1a1f25
-foreground = e0e6f0
+background = #1a1f25
+foreground = #e0e6f0
 
 # Cursor
-cursor-color = 00ffff
-cursor-text = 0a0e14
+cursor-color = #00ffff
+cursor-text = #0a0e14
 
 # Selection
-selection-background = 2a1f3d
-selection-foreground = e0e6f0
+selection-background = #2a1f3d
+selection-foreground = #e0e6f0
 
 # Normal colors (ANSI 0-7)
 palette = 0=#0a0e14
