@@ -3,7 +3,10 @@ local util = require('cyberpunk.util')
 
 function plugins.setup(colors, config)
   local groups = {}
-  
+
+  local sidebar_bg = (config.styles.sidebars == "transparent") and "NONE" or colors.bg_sidebar
+  local float_bg   = (config.styles.floats   == "transparent") and "NONE" or colors.bg_float
+
   -- Telescope (fuzzy finder)
   if config.plugins.telescope then
     groups = vim.tbl_deep_extend("force", groups, {
@@ -17,11 +20,11 @@ function plugins.setup(colors, config)
       TelescopePromptTitle = { fg = colors.neon_pink, style = "bold" },
     })
   end
-  
+
   -- NvimTree (file explorer)
   if config.plugins.nvim_tree then
     groups = vim.tbl_deep_extend("force", groups, {
-      NvimTreeNormal = { fg = colors.fg, bg = colors.bg_sidebar },
+      NvimTreeNormal = { fg = colors.fg, bg = sidebar_bg },
       NvimTreeRootFolder = { fg = colors.neon_cyan, style = "bold" },
       NvimTreeGitDirty = { fg = colors.git_change },
       NvimTreeGitNew = { fg = colors.git_add },
@@ -40,12 +43,12 @@ function plugins.setup(colors, config)
       NvimTreeExecFile = { fg = colors.neon_green },
     })
   end
-  
+
   -- Neo-tree (modern file explorer)
   if config.plugins.neo_tree then
     groups = vim.tbl_deep_extend("force", groups, {
-      NeoTreeNormal = { fg = colors.fg, bg = colors.bg_sidebar },
-      NeoTreeNormalNC = { fg = colors.fg, bg = colors.bg_sidebar },
+      NeoTreeNormal = { fg = colors.fg, bg = sidebar_bg },
+      NeoTreeNormalNC = { fg = colors.fg, bg = sidebar_bg },
       NeoTreeDirectoryName = { fg = colors.neon_blue },
       NeoTreeDirectoryIcon = { fg = colors.neon_blue },
       NeoTreeRootName = { fg = colors.neon_cyan, style = "bold" },
@@ -63,7 +66,7 @@ function plugins.setup(colors, config)
       NeoTreeGitStaged = { fg = colors.neon_green },
     })
   end
-  
+
   -- BufferLine (tab-like buffer display)
   if config.plugins.bufferline then
     groups = vim.tbl_deep_extend("force", groups, {
@@ -83,7 +86,7 @@ function plugins.setup(colors, config)
       BufferLineSeparatorVisible = { fg = colors.bg_dark, bg = colors.bg_dark },
     })
   end
-  
+
   -- Lualine (statusline)
   if config.plugins.lualine then
     groups = vim.tbl_deep_extend("force", groups, {
@@ -97,7 +100,7 @@ function plugins.setup(colors, config)
       lualine_a_terminal = { fg = colors.bg, bg = colors.neon_yellow, style = "bold" },
     })
   end
-  
+
   -- GitSigns (git integration)
   if config.plugins.gitsigns then
     groups = vim.tbl_deep_extend("force", groups, {
@@ -116,7 +119,7 @@ function plugins.setup(colors, config)
       GitSignsDeletePreview = { bg = util.darken(colors.git_delete, 0.8) },
     })
   end
-  
+
   -- nvim-cmp (completion)
   if config.plugins.cmp then
     groups = vim.tbl_deep_extend("force", groups, {
@@ -151,11 +154,11 @@ function plugins.setup(colors, config)
       CmpItemKindTypeParameter = { fg = colors.type },
     })
   end
-  
+
   -- Blink.cmp (modern completion)
   if config.plugins.blink_cmp then
     groups = vim.tbl_deep_extend("force", groups, {
-      BlinkCmpMenu = { fg = colors.fg, bg = colors.bg_float },
+      BlinkCmpMenu = { fg = colors.fg, bg = float_bg },
       BlinkCmpMenuBorder = { fg = colors.border },
       BlinkCmpMenuSelection = { fg = colors.bg, bg = colors.neon_cyan },
       BlinkCmpLabel = { fg = colors.fg },
@@ -167,7 +170,7 @@ function plugins.setup(colors, config)
       BlinkCmpGhostText = { fg = colors.comment, style = "italic" },
     })
   end
-  
+
   -- Indent BlankLine (indentation guides)
   if config.plugins.indent_blankline then
     groups = vim.tbl_deep_extend("force", groups, {
@@ -176,7 +179,7 @@ function plugins.setup(colors, config)
       IblWhitespace = { fg = colors.fg_gutter },
     })
   end
-  
+
   -- Alpha (dashboard)
   if config.plugins.alpha then
     groups = vim.tbl_deep_extend("force", groups, {
@@ -187,7 +190,7 @@ function plugins.setup(colors, config)
       AlphaButtons = { fg = colors.neon_orange },
     })
   end
-  
+
   -- Which-key (key binding hints)
   if config.plugins.which_key then
     groups = vim.tbl_deep_extend("force", groups, {
@@ -195,11 +198,11 @@ function plugins.setup(colors, config)
       WhichKeyGroup = { fg = colors.neon_pink },
       WhichKeyDesc = { fg = colors.fg },
       WhichKeySeperator = { fg = colors.comment },
-      WhichKeyFloat = { bg = colors.bg_float },
+      WhichKeyFloat = { bg = float_bg },
       WhichKeyValue = { fg = colors.neon_purple },
     })
   end
-  
+
   -- Notify (notification system)
   if config.plugins.notify then
     groups = vim.tbl_deep_extend("force", groups, {
@@ -220,20 +223,20 @@ function plugins.setup(colors, config)
       NotifyTRACETitle = { fg = colors.neon_purple, style = "bold" },
     })
   end
-  
+
   -- Noice (UI replacement)
   if config.plugins.noice then
     groups = vim.tbl_deep_extend("force", groups, {
-      NoicePopup = { bg = colors.bg_float },
+      NoicePopup = { bg = float_bg },
       NoicePopupBorder = { fg = colors.border },
-      NoiceCmdlinePopup = { bg = colors.bg_float },
+      NoiceCmdlinePopup = { bg = float_bg },
       NoiceCmdlinePopupBorder = { fg = colors.neon_cyan },
       NoiceCmdlineIcon = { fg = colors.neon_pink },
-      NoiceConfirm = { bg = colors.bg_float },
+      NoiceConfirm = { bg = float_bg },
       NoiceConfirmBorder = { fg = colors.neon_green },
     })
   end
-  
+
   -- Flash (enhanced f/t motions)
   if config.plugins.flash then
     groups = vim.tbl_deep_extend("force", groups, {
@@ -241,12 +244,12 @@ function plugins.setup(colors, config)
       FlashMatch = { fg = colors.bg, bg = colors.neon_cyan, style = "bold" },
       FlashCurrent = { fg = colors.bg, bg = colors.neon_pink, style = "bold" },
       FlashLabel = { fg = colors.bg, bg = colors.neon_orange, style = "bold" },
-      FlashPrompt = { bg = colors.bg_float },
+      FlashPrompt = { bg = float_bg },
       FlashPromptIcon = { fg = colors.neon_cyan },
       FlashCursor = { fg = colors.bg, bg = colors.cursor },
     })
   end
-  
+
   -- Leap (motion plugin)
   if config.plugins.leap then
     groups = vim.tbl_deep_extend("force", groups, {
@@ -256,7 +259,7 @@ function plugins.setup(colors, config)
       LeapBackdrop = { fg = colors.comment },
     })
   end
-  
+
   -- ToggleTerm (terminal integration)
   if config.plugins.toggleterm then
     groups = vim.tbl_deep_extend("force", groups, {
@@ -266,7 +269,7 @@ function plugins.setup(colors, config)
       ToggleTerm4FloatBorder = { fg = colors.neon_purple },
     })
   end
-  
+
   -- Oil.nvim (file manager)
   if config.plugins.oil then
     groups = vim.tbl_deep_extend("force", groups, {
@@ -280,7 +283,7 @@ function plugins.setup(colors, config)
       OilDelete = { fg = colors.git_delete },
     })
   end
-  
+
   return groups
 end
 

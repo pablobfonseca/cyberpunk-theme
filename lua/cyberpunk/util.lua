@@ -1,14 +1,13 @@
 local util = {}
-local palette = require('cyberpunk.palette')
 
 --- Convert hex color string to RGB components.
 --- @param hex string Hex color (e.g. "#ff007f")
---- @return number, number, number
+--- @return number r, number g, number b
 function util.hex_to_rgb(hex)
   hex = hex:gsub("#", "")
-  return tonumber("0x" .. hex:sub(1, 2)),
-    tonumber("0x" .. hex:sub(3, 4)),
-    tonumber("0x" .. hex:sub(5, 6))
+  return tonumber("0x" .. hex:sub(1, 2)) --[[@as number]],
+    tonumber("0x" .. hex:sub(3, 4)) --[[@as number]],
+    tonumber("0x" .. hex:sub(5, 6)) --[[@as number]]
 end
 
 --- Darken a hex color by a factor (0 = unchanged, 1 = black).
@@ -79,9 +78,10 @@ function util.highlight(groups)
   end
 end
 
---- Set terminal ANSI colors from the palette.
-function util.terminal()
-  local colors = palette.colors.terminal
+--- Set terminal ANSI colors from the resolved color table.
+--- @param colors table Full color table returned by palette.get()
+function util.terminal(colors)
+  colors = colors.terminal
 
   vim.g.terminal_color_0 = colors.black
   vim.g.terminal_color_1 = colors.red

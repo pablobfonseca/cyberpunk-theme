@@ -102,7 +102,7 @@ theme = cyberpunk
 
 ```lua
 require('cyberpunk').setup({
-  -- Theme variant (future expansion)
+  -- Theme variant
   style = "storm", -- storm, night, neon
 
   -- Transparency

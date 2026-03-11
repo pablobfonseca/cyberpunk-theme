@@ -1,8 +1,7 @@
 local palette = {}
 
--- Base cyberpunk color palette inspired by neon cityscapes
-palette.colors = {
-  -- Background colors (deep dark with subtle tech vibes)
+-- "storm" variant: original colors (default)
+local storm = {
   bg = "#0a0e14",
   bg_dark = "#060a0f",
   bg_float = "#0e1419",
@@ -10,12 +9,10 @@ palette.colors = {
   bg_statusline = "#1a1f25",
   bg_visual = "#2a1f3d",
 
-  -- Foreground colors
   fg = "#e0e6f0",
   fg_dark = "#b4bcc8",
   fg_gutter = "#3b4458",
 
-  -- Neon accent colors (the cyberpunk soul)
   neon_pink = "#ff007f",
   neon_cyan = "#00ffff",
   neon_green = "#00ff41",
@@ -24,20 +21,17 @@ palette.colors = {
   neon_blue = "#0080ff",
   neon_yellow = "#ffff00",
 
-  -- Semantic colors using neon palette
   error = "#ff007f",
   warning = "#ff8800",
   info = "#00ffff",
   hint = "#bf00ff",
   success = "#00ff41",
 
-  -- Git colors
   git_add = "#00ff41",
   git_change = "#ff8800",
   git_delete = "#ff007f",
   git_ignore = "#3b4458",
 
-  -- Syntax highlighting
   comment = "#6a7b9a",
   constant = "#ff007f",
   string = "#00ff41",
@@ -70,7 +64,6 @@ palette.colors = {
   special_comment = "#00ffff",
   debug = "#ff007f",
 
-  -- UI Elements
   border = "#2a3441",
   cursor = "#00ffff",
   cursor_line = "#1a1f25",
@@ -78,7 +71,6 @@ palette.colors = {
   search = "#ff8800",
   match_paren = "#00ffff",
 
-  -- Terminal colors (ANSI)
   terminal = {
     black = "#0a0e14",
     red = "#ff007f",
@@ -96,7 +88,205 @@ palette.colors = {
     bright_magenta = "#dd66ff",
     bright_cyan = "#66ffff",
     bright_white = "#ffffff",
-  }
+  },
 }
+
+-- "night" variant: deeper/darker backgrounds, slightly muted neon accents
+local night = vim.tbl_deep_extend("force", vim.deepcopy(storm), {
+  bg = "#05080d",
+  bg_dark = "#020508",
+  bg_float = "#080c12",
+  bg_sidebar = "#060a0f",
+  bg_statusline = "#12171c",
+  bg_visual = "#1e1530",
+
+  fg = "#d0d8e8",
+  fg_dark = "#8e9aae",
+  fg_gutter = "#2d3850",
+
+  -- Muted accents (reduced saturation / brightness)
+  neon_pink = "#cc0066",
+  neon_cyan = "#00cccc",
+  neon_green = "#00cc33",
+  neon_purple = "#9900cc",
+  neon_orange = "#cc6e00",
+  neon_blue = "#0066cc",
+  neon_yellow = "#cccc00",
+
+  error = "#cc0066",
+  warning = "#cc6e00",
+  info = "#00cccc",
+  hint = "#9900cc",
+  success = "#00cc33",
+
+  git_add = "#00cc33",
+  git_change = "#cc6e00",
+  git_delete = "#cc0066",
+  git_ignore = "#2d3850",
+
+  comment = "#556070",
+  constant = "#cc0066",
+  string = "#00cc33",
+  character = "#00cc33",
+  number = "#9900cc",
+  boolean = "#9900cc",
+  float = "#9900cc",
+  function_name = "#00cccc",
+  statement = "#cc0066",
+  conditional = "#cc6e00",
+  repeat_key = "#cc6e00",
+  label = "#0066cc",
+  operator = "#00cccc",
+  keyword = "#cc0066",
+  exception = "#cc0066",
+  preproc = "#9900cc",
+  include = "#9900cc",
+  define = "#9900cc",
+  title = "#00cccc",
+  macro = "#9900cc",
+  type = "#0066cc",
+  storage_class = "#cc6e00",
+  structure = "#0066cc",
+  typedef = "#0066cc",
+  special = "#cccc00",
+  special_char = "#cc6e00",
+  tag = "#cc0066",
+  special_comment = "#00cccc",
+  debug = "#cc0066",
+
+  border = "#1e2a35",
+  cursor = "#00cccc",
+  cursor_line = "#12171c",
+  selection = "#1e1530",
+  search = "#cc6e00",
+  match_paren = "#00cccc",
+
+  terminal = {
+    black = "#05080d",
+    red = "#cc0066",
+    green = "#00cc33",
+    yellow = "#cccc00",
+    blue = "#0066cc",
+    magenta = "#9900cc",
+    cyan = "#00cccc",
+    white = "#d0d8e8",
+    bright_black = "#2d3850",
+    bright_red = "#dd4488",
+    bright_green = "#33dd66",
+    bright_yellow = "#dddd44",
+    bright_blue = "#3388dd",
+    bright_magenta = "#bb44ee",
+    bright_cyan = "#44dddd",
+    bright_white = "#eef0f8",
+  },
+})
+
+-- "neon" variant: pure black backgrounds, maximum saturation neon accents
+local neon = vim.tbl_deep_extend("force", vim.deepcopy(storm), {
+  bg = "#000000",
+  bg_dark = "#000000",
+  bg_float = "#050505",
+  bg_sidebar = "#030303",
+  bg_statusline = "#0d0d0d",
+  bg_visual = "#1a0a2e",
+
+  fg = "#f0f6ff",
+  fg_dark = "#c0cce0",
+  fg_gutter = "#303850",
+
+  -- Maximum saturation neon
+  neon_pink = "#ff0099",
+  neon_cyan = "#00ffff",
+  neon_green = "#00ff00",
+  neon_purple = "#dd00ff",
+  neon_orange = "#ff6600",
+  neon_blue = "#0099ff",
+  neon_yellow = "#ffff00",
+
+  error = "#ff0099",
+  warning = "#ff6600",
+  info = "#00ffff",
+  hint = "#dd00ff",
+  success = "#00ff00",
+
+  git_add = "#00ff00",
+  git_change = "#ff6600",
+  git_delete = "#ff0099",
+  git_ignore = "#303850",
+
+  comment = "#4a5a6a",
+  constant = "#ff0099",
+  string = "#00ff00",
+  character = "#00ff00",
+  number = "#dd00ff",
+  boolean = "#dd00ff",
+  float = "#dd00ff",
+  function_name = "#00ffff",
+  statement = "#ff0099",
+  conditional = "#ff6600",
+  repeat_key = "#ff6600",
+  label = "#0099ff",
+  operator = "#00ffff",
+  keyword = "#ff0099",
+  exception = "#ff0099",
+  preproc = "#dd00ff",
+  include = "#dd00ff",
+  define = "#dd00ff",
+  title = "#00ffff",
+  macro = "#dd00ff",
+  type = "#0099ff",
+  storage_class = "#ff6600",
+  structure = "#0099ff",
+  typedef = "#0099ff",
+  special = "#ffff00",
+  special_char = "#ff6600",
+  tag = "#ff0099",
+  special_comment = "#00ffff",
+  debug = "#ff0099",
+
+  border = "#1a2233",
+  cursor = "#00ffff",
+  cursor_line = "#0d0d0d",
+  selection = "#1a0a2e",
+  search = "#ff6600",
+  match_paren = "#00ffff",
+
+  terminal = {
+    black = "#000000",
+    red = "#ff0099",
+    green = "#00ff00",
+    yellow = "#ffff00",
+    blue = "#0099ff",
+    magenta = "#dd00ff",
+    cyan = "#00ffff",
+    white = "#f0f6ff",
+    bright_black = "#303850",
+    bright_red = "#ff44aa",
+    bright_green = "#44ff44",
+    bright_yellow = "#ffff44",
+    bright_blue = "#44aaff",
+    bright_magenta = "#ee44ff",
+    bright_cyan = "#44ffff",
+    bright_white = "#ffffff",
+  },
+})
+
+local variants = {
+  storm = storm,
+  night = night,
+  neon = neon,
+}
+
+--- Return the color table for a given style variant.
+--- Falls back to "storm" for unknown styles.
+--- @param style string "storm"|"night"|"neon"
+--- @return table
+function palette.get(style)
+  return vim.deepcopy(variants[style] or storm)
+end
+
+-- Keep palette.colors pointing at storm for backward compat with any direct
+-- require('cyberpunk.palette').colors references in external code.
+palette.colors = storm
 
 return palette
