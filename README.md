@@ -11,9 +11,11 @@
 - 🎨 **Full spectrum neon palette** - Electric pinks, cyan blues, matrix greens, and purple hazes
 - ⚡ **Modern Neovim support** - Built for Neovim 0.9+ with Lua, Treesitter, and LSP semantic tokens
 - 🔧 **Extensive plugin support** - 20+ popular plugins styled with cyberpunk aesthetics
-- 🖥️ **Terminal suite** - Matching themes for tmux and Ghostty
+- 🖥️ **Terminal suite** - Matching themes for tmux, Ghostty, and Starship prompt
 - 🎯 **True color support** - Designed for modern terminals with full RGB support
 - 🌐 **Semantic highlighting** - LSP-aware syntax highlighting with meaningful color coding
+- 🤖 **Claude Code statusline** - Cyberpunk powerline for Claude Code sessions
+- 🪟 **LSP float styling** - Custom borders, diagnostic glyphs, nvim 0.11+ winborder support
 
 ## 🎨 Color Palette
 
@@ -136,6 +138,48 @@ Supports automatic light/dark switching:
 theme = dark:Cyberpunk Night,light:Cyberpunk Storm
 ```
 
+### Starship Prompt
+
+```bash
+cp extras/starship/cyberpunk-storm.toml ~/.config/starship.toml
+```
+
+Three palettes: `cyberpunk_storm`, `cyberpunk_neon`, `cyberpunk_night` — swap via `palette = "cyberpunk_*"` at the top of the file.
+
+**Segments:**
+
+- Directory with truncation + read-only indicator
+- Git branch + status (dirty, ahead/behind)
+- Language versions: Rust, Go, Python, Node, Lua
+- Vim mode indicator (NORMAL / INSERT / VISUAL)
+- Command duration timer
+
+### Claude Code Statusline
+
+True-color ANSI statusline for [Claude Code](https://claude.ai/code) sessions.
+
+```bash
+npm install -g @pablobfonseca/claude-cyberpunk-powerline
+# or use via npx (no install needed)
+```
+
+Add to `~/.claude/settings.json`:
+
+```json
+{
+  "statusLine": {
+    "type": "command",
+    "command": "npx -y @pablobfonseca/claude-cyberpunk-powerline --style=storm"
+  }
+}
+```
+
+**Styles:** `storm` (default) | `night` | `neon`
+
+**Segments:** model name, context bar (color-shifts as context fills), session cost, lines changed, project name, token count
+
+**Flags:** `--style=<variant>`, `--git` (append current branch)
+
 ## ⚙️ Configuration
 
 ### Neovim Setup
@@ -165,7 +209,7 @@ require('cyberpunk').setup({
   plugins = {
     -- Core editing
     treesitter = true,
-    lsp = true,
+    lsp = true, -- enables LSP semantic token highlights
 
     -- File exploration
     telescope = true,
@@ -222,13 +266,48 @@ require('cyberpunk').setup({
 })
 ```
 
+### LSP UI Module
+
+Opt-in module at `lua/cyberpunk/lsp.lua` — enables cyberpunk-styled LSP floats and diagnostics:
+
+```lua
+require('cyberpunk').setup({
+  plugins = { lsp = true },
+})
+
+-- Opt-in LSP UI styling (separate from semantic highlights)
+require('cyberpunk.lsp').setup()
+```
+
+**What it configures:**
+
+- Box-drawing borders on hover/signature help floats
+- Diagnostic signs: block glyphs `█▓▒░` per severity
+- Virtual text prefixed with `▌`
+- Nvim 0.11+ `winborder` with pre-0.11 fallback
+- Undercurl diagnostics, bold signs, severity-sorted display
+
+### CMP Border Helper
+
+The LSP module exports a `cmp_border()` helper for consistent completion window borders:
+
+```lua
+local border = require("cyberpunk.lsp").cmp_border()
+cmp.setup({
+  window = {
+    completion  = { border = border, winhighlight = "Normal:NormalFloat,FloatBorder:CmpBorder,CursorLine:Visual,Search:None" },
+    documentation = { border = border, winhighlight = "Normal:NormalFloat,FloatBorder:CmpBorder,CursorLine:Visual,Search:None" },
+  },
+})
+```
+
 ## 🔌 Plugin Support
 
 The theme includes first-class support for:
 
 ### 🔍 **Navigation & Search**
 
-- Telescope - Enhanced fuzzy finding with neon highlights
+- Telescope - Per-pane backgrounds, per-section colored borders (pink prompt, cyan results, green preview), multi-select indicators (orange icons, purple bold); respects `styles.floats` setting
 - Flash/Leap - Electric motion highlighting
 - Which-key - Glowing key binding hints
 
@@ -241,8 +320,8 @@ The theme includes first-class support for:
 ### ⌨️ **Code Editing**
 
 - Treesitter - Semantic syntax highlighting
-- LSP - Intelligent code highlighting
-- nvim-cmp/Blink.cmp - Futuristic completion menus
+- LSP - Semantic highlights + opt-in float styling via `cyberpunk.lsp` (see [LSP UI Module](#lsp-ui-module))
+- nvim-cmp/Blink.cmp - Futuristic completion menus with `cmp_border()` helper
 - Indent Blankline - Subtle indentation guides
 
 ### 🎨 **UI Enhancement**
