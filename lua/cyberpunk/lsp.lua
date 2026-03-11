@@ -1,5 +1,12 @@
 local M = {}
 
+local function make_border(hl)
+  return {
+    { "┌", hl }, { "─", hl }, { "┐", hl }, { "│", hl },
+    { "┘", hl }, { "─", hl }, { "└", hl }, { "│", hl },
+  }
+end
+
 local defaults = {
   signs = true,
   virtual_text = true,
@@ -44,6 +51,20 @@ function M.setup(opts)
       max_width = 80,
       max_height = 20,
     }
+
+    vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+      vim.lsp.handlers.hover, {
+        border = make_border("LspHoverBorder"),
+        max_width = 80,
+      }
+    )
+
+    vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
+      vim.lsp.handlers.signature_help, {
+        border = make_border("LspSignatureHelpBorder"),
+        max_width = 80,
+      }
+    )
   end
 
   -- Apply user overrides last

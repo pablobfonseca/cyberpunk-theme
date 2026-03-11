@@ -298,6 +298,10 @@ function highlights.setup(colors, config)
 
     -- LSP info float border
     LspInfoBorder = { fg = colors.border },
+    -- Hover float border — neon cyan
+    LspHoverBorder = { fg = colors.neon_cyan },
+    -- Signature help float border — neon pink
+    LspSignatureHelpBorder = { fg = colors.neon_pink },
   })
 
   -- Load plugin-specific highlights
