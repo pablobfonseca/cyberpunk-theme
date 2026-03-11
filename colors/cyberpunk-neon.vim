@@ -2,7 +2,7 @@
 " Pure black backgrounds with maximum saturation neon accents
 
 if has('nvim') && has('lua')
-  lua require('cyberpunk').setup({ style = 'neon' }); require('cyberpunk').load()
+  lua local c = require('cyberpunk'); c.config.style = 'neon'; c.load()
   finish
 endif
 

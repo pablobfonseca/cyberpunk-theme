@@ -2,7 +2,7 @@
 " Deep dark backgrounds, classic neon accents
 
 if has('nvim') && has('lua')
-  lua require('cyberpunk').setup({ style = 'storm' }); require('cyberpunk').load()
+  lua local c = require('cyberpunk'); c.config.style = 'storm'; c.load()
   finish
 endif
 
