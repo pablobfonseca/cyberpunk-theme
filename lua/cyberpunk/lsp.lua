@@ -96,9 +96,6 @@ function M.setup(opts)
 
   vim.diagnostic.config(config)
 
-  if opts.float then
-    M._defer_style_cmp()
-  end
 end
 
 local kind_icons = {
@@ -129,55 +126,28 @@ local kind_icons = {
   TypeParameter = "",
 }
 
---- Apply cyberpunk styling to nvim-cmp (borders + kind icons).
-function M._apply_cmp_style()
-  local ok, cmp = pcall(require, "cmp")
-  if not ok then
-    return false
-  end
-
-  local border = make_border("CmpBorder")
-  local whl = "Normal:NormalFloat,FloatBorder:CmpBorder,CursorLine:Visual,Search:None"
-
+--- Returns a formatting function for nvim-cmp with Nerd Font kind icons.
+--- Uses nvim-web-devicons for File/Folder items when available.
+--- Usage: formatting = { fields = { "kind", "abbr", "menu" }, format = require("cyberpunk.lsp").cmp_format() }
+function M.cmp_format()
   local has_devicons, devicons = pcall(require, "nvim-web-devicons")
-
-  cmp.setup {
-    formatting = {
-      fields = { "kind", "abbr", "menu" },
-      format = function(_, vim_item)
-        if has_devicons and (vim_item.kind == "File" or vim_item.kind == "Folder") then
-          local icon, hl = devicons.get_icon(vim_item.abbr, nil, { default = true })
-          if icon then
-            vim_item.kind = icon .. " "
-            vim_item.kind_hl_group = hl
-            return vim_item
-          end
-        end
-        vim_item.kind = (kind_icons[vim_item.kind] or "") .. " "
+  return function(_, vim_item)
+    if has_devicons and (vim_item.kind == "File" or vim_item.kind == "Folder") then
+      local icon, hl = devicons.get_icon(vim_item.abbr, nil, { default = true })
+      if icon then
+        vim_item.kind = icon .. " "
+        vim_item.kind_hl_group = hl
         return vim_item
-      end,
-    },
-    window = {
-      completion = { border = border, winhighlight = whl },
-      documentation = { border = border, winhighlight = whl },
-    },
-  }
-  return true
+      end
+    end
+    vim_item.kind = (kind_icons[vim_item.kind] or "") .. " "
+    return vim_item
+  end
 end
 
---- Defer cmp styling until the plugin is actually loaded.
-function M._defer_style_cmp()
-  -- Try immediately (cmp might already be loaded)
-  if M._apply_cmp_style() then
-    return
-  end
-  -- Wait for lazy-loaded cmp
-  vim.api.nvim_create_autocmd("InsertEnter", {
-    once = true,
-    callback = function()
-      vim.schedule(M._apply_cmp_style)
-    end,
-  })
+--- Returns a border table for use in nvim-cmp window config.
+function M.cmp_border()
+  return make_border("CmpBorder")
 end
 
 return M
