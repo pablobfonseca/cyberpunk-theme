@@ -129,15 +129,31 @@ function contextBar(usedPct, palette) {
 }
 
 // ---------------------------------------------------------------------------
+// Token formatting
+// ---------------------------------------------------------------------------
+
+/**
+ * Format a token count into a compact human-readable string.
+ * e.g. 1234 → "1.2k", 56789 → "56.8k", 1234567 → "1.2M"
+ * @param {number} count
+ * @returns {string}
+ */
+function formatTokenCount(count) {
+  if (count >= 1_000_000) return `${(count / 1_000_000).toFixed(1)}M tok`;
+  if (count >= 1_000) return `${(count / 1_000).toFixed(1)}k tok`;
+  return `${count} tok`;
+}
+
+// ---------------------------------------------------------------------------
 // Main render
 // ---------------------------------------------------------------------------
 
 /**
  * @typedef {Object} StatusData
  * @property {{ display_name?: string, id?: string }} [model]
- * @property {{ used_percentage?: number }} [context_window]
+ * @property {{ used_percentage?: number, total_input_tokens?: number, total_output_tokens?: number }} [context_window]
  * @property {{ total_cost_usd?: number, total_lines_added?: number, total_lines_removed?: number }} [cost]
- * @property {{ current_dir?: string }} [workspace]
+ * @property {{ current_dir?: string, project_dir?: string }} [workspace]
  * @property {string} [session_id]
  */
 
@@ -156,6 +172,13 @@ function contextBar(usedPct, palette) {
 function renderStatusline(data, palette, options = {}) {
   const sep = color(' \u2502 ', palette.fg_dim);
 
+  // Project segment: derive name from workspace.project_dir
+  const projectDir = data.workspace?.project_dir ?? data.workspace?.current_dir;
+  const projectName = projectDir ? path.basename(projectDir) : null;
+  const projectSegment = projectName
+    ? color(projectName, palette.neon_blue, true)
+    : null;
+
   // Model segment: <Name>
   const modelName = data.model?.display_name ?? data.model?.id ?? 'Claude';
   const modelSegment =
@@ -166,6 +189,14 @@ function renderStatusline(data, palette, options = {}) {
   // Context window segment
   const usedPct = data.context_window?.used_percentage ?? 0;
   const ctxSegment = contextBar(usedPct, palette);
+
+  // Token count segment
+  const inputTokens = data.context_window?.total_input_tokens ?? 0;
+  const outputTokens = data.context_window?.total_output_tokens ?? 0;
+  const totalTokens = inputTokens + outputTokens;
+  const tokenSegment = totalTokens > 0
+    ? color(formatTokenCount(totalTokens), palette.neon_yellow)
+    : null;
 
   // Cost segment
   const totalCost = data.cost?.total_cost_usd ?? 0;
@@ -189,8 +220,10 @@ function renderStatusline(data, palette, options = {}) {
 
   // Assemble — filter out null optional segments before joining
   const segments = [
+    projectSegment,
     modelSegment,
     ctxSegment,
+    tokenSegment,
     costSegment,
     linesSegment,
     branchSegment,

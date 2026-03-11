@@ -69,8 +69,7 @@ format = '[ $user]($style)'
 [directory]
 style = "bold neon_cyan"
 format = '[ $path]($style) '
-truncation_length = 3
-truncation_symbol = "…/"
+truncation_length = 1
 
 [directory.substitutions]
 "Documents" = "󰈙 "
@@ -87,14 +86,14 @@ format = '[$symbol $branch]($style) '
 [git_status]
 style = "comment"
 format = '([$all_status$ahead_behind]($style) )'
-modified = '[~${count}](neon_orange)'
-staged = '[+${count}](neon_green)'
-untracked = '[?${count}](neon_yellow)'
-deleted = '[✗${count}](neon_pink)'
-ahead = '[⇡${count}](neon_cyan)'
-behind = '[⇣${count}](neon_cyan)'
-diverged = '[⇕⇡${ahead_count}⇣${behind_count}](neon_orange)'
-conflicted = '[!${count}](bold neon_pink)'
+modified = '[~ ${count}](neon_orange)'
+staged = '[+ ${count}](neon_green)'
+untracked = '[? ${count}](neon_yellow)'
+deleted = '[✗ ${count}](neon_pink)'
+ahead = '[⇡ ${count}](neon_cyan)'
+behind = '[⇣ ${count}](neon_cyan)'
+diverged = '[⇕ ⇡${ahead_count} ⇣${behind_count}](neon_orange)'
+conflicted = '[! ${count}](bold neon_pink)'
 
 [c]
 symbol = ""
