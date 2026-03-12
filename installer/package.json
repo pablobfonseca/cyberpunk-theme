@@ -1,0 +1,14 @@
+{
+  "name": "cyberpunk-theme-installer",
+  "version": "1.0.0",
+  "description": "Interactive installer for cyberpunk-theme suite",
+  "type": "module",
+  "main": "index.js",
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@inquirer/prompts": "^7.0.0"
+  }
+}
