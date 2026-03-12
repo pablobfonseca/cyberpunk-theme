@@ -97,13 +97,12 @@ async function main() {
     const comp    = components.find(c => c.id === id)
     const variant = variants[id]
 
-    process.stdout.write(`⚡ Installing ${comp.name}...`)
     try {
       const result = await comp.install(variant, repoRoot, { dryRun })
-      console.log(' done')
+      console.log(`⚡ ${comp.name}... done`)
       results.push({ name: comp.name, variant, status: '✔', ...result })
     } catch (err) {
-      console.log(' failed')
+      console.log(`⚡ ${comp.name}... failed`)
       results.push({ name: comp.name, variant, status: '✘', message: err.message })
     }
   }
