@@ -4,6 +4,10 @@ import { printBanner } from './lib/banner.js'
 import { printSummary } from './lib/summary.js'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import * as ghostty from './components/ghostty.js'
+import * as starship from './components/starship.js'
+import * as tmux from './components/tmux.js'
+import * as claudeCode from './components/claude-code.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const repoRoot  = resolve(__dirname, '..')
@@ -19,7 +23,7 @@ const dryRun    = process.argv.includes('--dry-run')
  *
  * Components are added here as subsequent tasks are completed.
  */
-const components = []
+const components = [ghostty, starship, tmux, claudeCode]
 
 async function main() {
   printBanner()
