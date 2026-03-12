@@ -10,6 +10,7 @@
  * Usage:
  *   echo '<json>' | npx -y @pablobfonseca/claude-cyberpunk-powerline --style=storm
  *   echo '<json>' | npx -y @pablobfonseca/claude-cyberpunk-powerline --style=neon --git
+ *   echo '<json>' | npx -y @pablobfonseca/claude-cyberpunk-powerline --duration --cache --vim-mode
  */
 
 const { getPalette } = require('../lib/palettes.js');
@@ -35,6 +36,9 @@ function getFlag(args, key, defaultValue) {
 const args = process.argv.slice(2);
 const style = getFlag(args, 'style', 'storm');
 const showGit = args.includes('--git');
+const showDuration = args.includes('--duration');
+const showCache = args.includes('--cache');
+const showVimMode = args.includes('--vim-mode');
 const palette = getPalette(style);
 
 // ---------------------------------------------------------------------------
@@ -61,7 +65,14 @@ process.stdin.on('end', () => {
     process.exit(1);
   }
 
-  process.stdout.write(renderStatusline(data, palette, { git: showGit }) + '\n');
+  process.stdout.write(
+    renderStatusline(data, palette, {
+      git: showGit,
+      duration: showDuration,
+      cache: showCache,
+      vimMode: showVimMode,
+    }) + '\n',
+  );
 });
 
 process.stdin.on('error', () => {

@@ -145,21 +145,51 @@ function formatTokenCount(count) {
 }
 
 // ---------------------------------------------------------------------------
+// Duration formatting
+// ---------------------------------------------------------------------------
+
+/**
+ * Format a duration in milliseconds into a compact human-readable string.
+ * e.g. 45000 → "45s", 74500 → "1m14s", 500 → "<1s"
+ * @param {number} ms
+ * @returns {string}
+ */
+function formatDuration(ms) {
+  if (ms < 1_000) return '<1s';
+  const totalSecs = Math.floor(ms / 1_000);
+  if (totalSecs < 60) return `${totalSecs}s`;
+  const mins = Math.floor(totalSecs / 60);
+  const secs = totalSecs % 60;
+  return `${mins}m${String(secs).padStart(2, '0')}s`;
+}
+
+// ---------------------------------------------------------------------------
 // Main render
 // ---------------------------------------------------------------------------
 
 /**
+ * @typedef {Object} ContextUsage
+ * @property {number} [cache_read_input_tokens]
+ * @property {number} [cache_creation_input_tokens]
+ * @property {number} [input_tokens]
+ */
+
+/**
  * @typedef {Object} StatusData
  * @property {{ display_name?: string, id?: string }} [model]
- * @property {{ used_percentage?: number, total_input_tokens?: number, total_output_tokens?: number }} [context_window]
- * @property {{ total_cost_usd?: number, total_lines_added?: number, total_lines_removed?: number }} [cost]
+ * @property {{ used_percentage?: number, total_input_tokens?: number, total_output_tokens?: number, current_usage?: ContextUsage }} [context_window]
+ * @property {{ total_cost_usd?: number, total_lines_added?: number, total_lines_removed?: number, total_duration_ms?: number, total_api_duration_ms?: number }} [cost]
  * @property {{ current_dir?: string, project_dir?: string }} [workspace]
+ * @property {{ mode?: string }} [vim]
  * @property {string} [session_id]
  */
 
 /**
  * @typedef {Object} RenderOptions
- * @property {boolean} [git]  Show git branch segment (default: false)
+ * @property {boolean} [git]       Show git branch segment (default: false)
+ * @property {boolean} [duration]  Show session duration segment (default: false)
+ * @property {boolean} [cache]     Show cache hit ratio segment (default: false)
+ * @property {boolean} [vimMode]   Show vim mode segment (default: false)
  */
 
 /**
@@ -210,6 +240,46 @@ function renderStatusline(data, palette, options = {}) {
       ? null
       : `${color(`+${linesAdded}`, palette.neon_green)} ${color(`-${linesRemoved}`, palette.neon_pink)}`;
 
+  // Vim mode segment (opt-in via --vim-mode flag, placed first)
+  let vimModeSegment = null;
+  if (options.vimMode && data.vim?.mode) {
+    const mode = data.vim.mode.toUpperCase();
+    const modeColor =
+      mode === 'NORMAL' ? palette.neon_blue :
+      mode === 'INSERT' ? palette.neon_green :
+      palette.neon_yellow;
+    vimModeSegment = color(mode, modeColor, true);
+  }
+
+  // Session duration segment (opt-in via --duration flag)
+  let durationSegment = null;
+  if (options.duration && data.cost?.total_duration_ms != null) {
+    const wall = formatDuration(data.cost.total_duration_ms);
+    const wallPart = color(wall, palette.neon_cyan);
+    const apiMs = data.cost.total_api_duration_ms;
+    const apiPart =
+      apiMs != null && apiMs > 0
+        ? color(` (API: ${formatDuration(apiMs)})`, palette.fg_dim)
+        : '';
+    durationSegment = wallPart + apiPart;
+  }
+
+  // Cache hit ratio segment (opt-in via --cache flag)
+  let cacheSegment = null;
+  if (options.cache && data.context_window?.current_usage != null) {
+    const { cache_read_input_tokens: cacheRead = 0, cache_creation_input_tokens: cacheCreation = 0, input_tokens: inputTok = 0 } =
+      data.context_window.current_usage;
+    const denominator = cacheRead + cacheCreation + inputTok;
+    if (denominator > 0) {
+      const ratio = (cacheRead / denominator) * 100;
+      const cacheColor =
+        ratio >= 70 ? palette.neon_green :
+        ratio >= 40 ? palette.neon_yellow :
+        palette.neon_orange;
+      cacheSegment = color(`\u26a1 ${Math.round(ratio)}%`, cacheColor);
+    }
+  }
+
   // Git branch segment (opt-in via --git flag)
   let branchSegment = null;
   if (options.git) {
@@ -218,8 +288,10 @@ function renderStatusline(data, palette, options = {}) {
     branchSegment = branch ? color(branch, palette.neon_blue) : null;
   }
 
-  // Assemble — filter out null optional segments before joining
+  // Assemble — filter out null optional segments before joining.
+  // vimModeSegment leads; branchSegment, durationSegment, cacheSegment trail.
   const segments = [
+    vimModeSegment,
     projectSegment,
     modelSegment,
     ctxSegment,
@@ -227,6 +299,8 @@ function renderStatusline(data, palette, options = {}) {
     costSegment,
     linesSegment,
     branchSegment,
+    durationSegment,
+    cacheSegment,
   ].filter(Boolean);
 
   return segments.join(sep);
