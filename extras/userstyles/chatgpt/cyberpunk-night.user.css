@@ -1,0 +1,45 @@
+/* ==UserStyle==
+@name        ChatGPT Cyberpunk Night
+@namespace   github.com/pablobfonseca/cyberpunk-theme
+@homepageURL https://github.com/pablobfonseca/cyberpunk-theme/tree/main/extras/userstyles/chatgpt
+@version     1.0.0
+@description Cyberpunk Night theme for ChatGPT
+@author      pablobfonseca
+@license     MIT
+==/UserStyle== */
+
+@-moz-document domain("chatgpt.com") {
+  .dark {
+    --bg-primary: #05080d;
+    --bg-secondary: #080c12;
+    --bg-tertiary: #12171c;
+    --bg-elevated-secondary: #060a0f;
+    --main-surface-primary: #05080d;
+    --main-surface-secondary: #080c12;
+    --main-surface-tertiary: #12171c;
+    --sidebar-surface: #060a0f;
+    --sidebar-surface-primary: #020508;
+    --surface-hover: #12171c;
+    --main-page-background: #05080d;
+    --text-primary: #d0d8e8;
+    --text-secondary: #8e9aae;
+    --text-tertiary: #556070;
+    --text-quaternary: #2d3850;
+    --text-status-error: #cc0066;
+    --border-light: #12171c;
+    --border-default: #1e2a35;
+    --border-medium: #2d3850;
+    --interactive-border-focus: #00cccc;
+    --interactive-bg-secondary-hover: #12171c;
+    --interactive-bg-secondary-press: #080c12;
+    --interactive-label-accent-default: #00cccc;
+    --theme-user-msg-bg: #080c12;
+    --theme-submit-btn-bg: #00cccc;
+    --theme-submit-btn-text: #05080d;
+    --theme-secondary-btn-bg: #12171c;
+    --theme-secondary-btn-text: #d0d8e8;
+    --icon-tertiary: #2d3850;
+    --menu-item-active: #1e1530;
+    --menu-item-highlighted: #12171c;
+  }
+}

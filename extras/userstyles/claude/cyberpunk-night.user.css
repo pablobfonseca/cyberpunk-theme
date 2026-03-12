@@ -1,0 +1,57 @@
+/* ==UserStyle==
+@name        Claude Cyberpunk Night
+@namespace   github.com/pablobfonseca/cyberpunk-theme
+@homepageURL https://github.com/pablobfonseca/cyberpunk-theme/tree/main/extras/userstyles/claude
+@version     1.0.0
+@description Cyberpunk Night theme for Claude
+@author      pablobfonseca
+@license     MIT
+==/UserStyle== */
+
+@-moz-document domain("claude.ai") {
+  :root[data-mode="dark"] {
+    --accent-brand: #00cccc;
+    --accent-000: #00cccc;
+    --accent-100: #00cccc;
+    --accent-200: #44dddd;
+    --accent-900: #009999;
+    --accent-main-000: #00cccc;
+    --accent-main-100: #00cccc;
+    --accent-main-200: #44dddd;
+    --accent-main-900: #009999;
+    --accent-pro-000: #00cccc;
+    --accent-pro-100: #00cccc;
+    --accent-pro-200: #44dddd;
+    --accent-pro-900: #009999;
+    --accent-secondary-000: #00cccc;
+    --accent-secondary-100: #00cccc;
+    --accent-secondary-200: #44dddd;
+    --accent-secondary-900: #009999;
+    --bg-000: #080c12;
+    --bg-100: #05080d;
+    --bg-200: #060a0f;
+    --bg-300: #080c12;
+    --bg-400: #12171c;
+    --bg-500: #1e2a35;
+    --border-000: #05080d;
+    --border-100: #020508;
+    --border-200: #020508;
+    --border-300: #1e2a35;
+    --border-400: #2d3850;
+    --border-500: #556070;
+    --text-000: #8e9aae;
+    --text-100: #d0d8e8;
+    --text-200: #d0d8e8;
+    --text-300: #556070;
+    --text-400: #8e9aae;
+    --text-500: #556070;
+    --danger-000: #dd4488;
+    --danger-100: #cc0066;
+    --danger-200: #cc0066;
+    --danger-900: #cc0066;
+    --oncolor-000: #000305;
+    --oncolor-100: #020508;
+    --oncolor-200: #020508;
+    --oncolor-300: #060a0f;
+  }
+}

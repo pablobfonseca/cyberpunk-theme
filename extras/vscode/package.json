@@ -1,0 +1,35 @@
+{
+  "name": "cyberpunk-theme",
+  "displayName": "Cyberpunk Theme",
+  "description": "A cyberpunk-inspired color theme with neon accents",
+  "version": "1.0.0",
+  "publisher": "cyberpunk-theme",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.70.0"
+  },
+  "categories": ["Themes"],
+  "contributes": {
+    "themes": [
+      {
+        "label": "Cyberpunk Storm",
+        "uiTheme": "vs-dark",
+        "path": "./themes/cyberpunk-storm.json"
+      },
+      {
+        "label": "Cyberpunk Night",
+        "uiTheme": "vs-dark",
+        "path": "./themes/cyberpunk-night.json"
+      },
+      {
+        "label": "Cyberpunk Neon",
+        "uiTheme": "vs-dark",
+        "path": "./themes/cyberpunk-neon.json"
+      }
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pablobfonseca/cyberpunk-theme"
+  }
+}
