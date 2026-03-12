@@ -1,11 +1,8 @@
 import fs from 'node:fs/promises'
 import path from 'node:path'
 import { execFile } from 'node:child_process'
-import { promisify } from 'node:util'
 import { select } from '@inquirer/prompts'
 import { fileExists } from '../lib/fs-helpers.js'
-
-const execFileAsync = promisify(execFile)
 
 export const id   = 'neovim'
 export const name = 'Neovim'
