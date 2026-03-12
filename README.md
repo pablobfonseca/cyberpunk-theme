@@ -6,6 +6,19 @@
 
 ![Cyberpunk Theme - Storm variant](docs/screenshots/storm-editor.png)
 
+## 📦 Ports
+
+| Platform | Link |
+|----------|------|
+| Neovim | [Installation](#neovim-theme) · [Config](#neovim-setup) · [Plugins](#-plugin-support) |
+| tmux | [Installation](#tmux-theme) |
+| Ghostty | [Installation](#ghostty-theme) |
+| Starship | [Installation](#starship-prompt) |
+| VSCode | [Installation](#vscode-theme) |
+| ChatGPT | [Install with Stylus](#userstyles-chatgpt--claude) |
+| Claude | [Install with Stylus](#userstyles-chatgpt--claude) |
+| Claude Code | [Statusline](#claude-code-statusline) |
+
 ## ✨ Features
 
 - 🎨 **Full spectrum neon palette** - Electric pinks, cyan blues, matrix greens, and purple hazes
