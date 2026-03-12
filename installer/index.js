@@ -2,6 +2,7 @@
 import { select, checkbox, confirm } from '@inquirer/prompts'
 import { printBanner } from './lib/banner.js'
 import { printSummary } from './lib/summary.js'
+import { detectAll } from './lib/detect.js'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import * as ghostty from './components/ghostty.js'
@@ -33,6 +34,8 @@ async function main() {
 
   if (dryRun) console.log('\n⚡ Dry-run mode — no files will be modified\n')
 
+  const detected = await detectAll(components)
+
   // 1. Variant selection
   const variantChoice = await select({
     message: 'Which variant?',
@@ -52,11 +55,11 @@ async function main() {
 
   const selected = await checkbox({
     message: 'Which components to install?',
-    choices: components.map(c => ({
-      name:    c.name,
-      value:   c.id,
-      checked: false,
-    })),
+    choices: components.map(c => {
+      const det   = detected.get(c.id)
+      const label = det?.installed ? `${c.name} (detected)` : c.name
+      return { name: label, value: c.id, checked: false }
+    }),
   })
 
   if (selected.length === 0) {

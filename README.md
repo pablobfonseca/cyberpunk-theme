@@ -19,6 +19,17 @@
 | Claude | [Install with Stylus](#userstyles-chatgpt--claude) |
 | Claude Code | [Statusline](#claude-code-statusline) |
 
+## ⚡ Quick Install
+
+```bash
+git clone https://github.com/pablobfonseca/cyberpunk-theme.git
+cd cyberpunk-theme/installer
+npm install
+node index.js
+```
+
+Interactive wizard that installs any combination of themes. Use `--dry-run` to preview changes.
+
 ## ✨ Features
 
 - 🎨 **Full spectrum neon palette** - Electric pinks, cyan blues, matrix greens, and purple hazes
