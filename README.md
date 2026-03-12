@@ -1,6 +1,6 @@
 # 🌃 Cyberpunk Theme
 
-> A neon-soaked, electric aesthetic theme suite for Neovim, tmux, and Ghostty
+> A neon-soaked, electric aesthetic theme suite for Neovim, tmux, Ghostty, VSCode, and more
 
 **Welcome to the grid.** This theme brings the electric, neon-drenched aesthetics of cyberpunk to your development environment. Built with modern Neovim APIs and designed for the latest terminal technologies.
 
@@ -12,6 +12,8 @@
 - ⚡ **Modern Neovim support** - Built for Neovim 0.9+ with Lua, Treesitter, and LSP semantic tokens
 - 🔧 **Extensive plugin support** - 20+ popular plugins styled with cyberpunk aesthetics
 - 🖥️ **Terminal suite** - Matching themes for tmux, Ghostty, and Starship prompt
+- 💻 **VSCode theme** - Full editor + syntax highlighting for Visual Studio Code
+- 🌐 **Userstyles** - Stylus themes for ChatGPT and Claude
 - 🎯 **True color support** - Designed for modern terminals with full RGB support
 - 🌐 **Semantic highlighting** - LSP-aware syntax highlighting with meaningful color coding
 - 🤖 **Claude Code statusline** - Cyberpunk powerline for Claude Code sessions
@@ -179,6 +181,32 @@ Add to `~/.claude/settings.json`:
 **Segments:** model name, context bar (color-shifts as context fills), session cost, lines changed, project name, token count
 
 **Flags:** `--style=<variant>`, `--git` (append current branch)
+
+### VSCode Theme
+
+Install from a local clone:
+
+1. Open VSCode → `Cmd+Shift+P` → **"Developer: Install Extension from Location..."**
+2. Select `extras/vscode` from this repo
+3. `Cmd+K Cmd+T` → choose **Cyberpunk Storm**, **Cyberpunk Night**, or **Cyberpunk Neon**
+
+Includes full UI chrome colors and syntax token highlighting across all 3 variants.
+
+### Userstyles (ChatGPT & Claude)
+
+Browser themes via the [Stylus](https://github.com/openstyles/stylus) extension. Click to install:
+
+**ChatGPT:**
+[![Storm](https://img.shields.io/badge/Install_Storm-00ffff?colorA=0a0e14&style=for-the-badge)](https://raw.githubusercontent.com/pablobfonseca/cyberpunk-theme/main/extras/userstyles/chatgpt/cyberpunk-storm.user.css)
+[![Night](https://img.shields.io/badge/Install_Night-00cccc?colorA=05080d&style=for-the-badge)](https://raw.githubusercontent.com/pablobfonseca/cyberpunk-theme/main/extras/userstyles/chatgpt/cyberpunk-night.user.css)
+[![Neon](https://img.shields.io/badge/Install_Neon-00ffff?colorA=000000&style=for-the-badge)](https://raw.githubusercontent.com/pablobfonseca/cyberpunk-theme/main/extras/userstyles/chatgpt/cyberpunk-neon.user.css)
+
+**Claude:**
+[![Storm](https://img.shields.io/badge/Install_Storm-00ffff?colorA=0a0e14&style=for-the-badge)](https://raw.githubusercontent.com/pablobfonseca/cyberpunk-theme/main/extras/userstyles/claude/cyberpunk-storm.user.css)
+[![Night](https://img.shields.io/badge/Install_Night-00cccc?colorA=05080d&style=for-the-badge)](https://raw.githubusercontent.com/pablobfonseca/cyberpunk-theme/main/extras/userstyles/claude/cyberpunk-night.user.css)
+[![Neon](https://img.shields.io/badge/Install_Neon-00ffff?colorA=000000&style=for-the-badge)](https://raw.githubusercontent.com/pablobfonseca/cyberpunk-theme/main/extras/userstyles/claude/cyberpunk-neon.user.css)
+
+Overrides native CSS custom properties only (dark mode) — no class selectors, resilient to site updates.
 
 ## ⚙️ Configuration
 
