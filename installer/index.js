@@ -8,6 +8,9 @@ import * as ghostty from './components/ghostty.js'
 import * as starship from './components/starship.js'
 import * as tmux from './components/tmux.js'
 import * as claudeCode from './components/claude-code.js'
+import * as neovim from './components/neovim.js'
+import * as vscode from './components/vscode.js'
+import * as userstyles from './components/userstyles.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const repoRoot  = resolve(__dirname, '..')
@@ -23,7 +26,7 @@ const dryRun    = process.argv.includes('--dry-run')
  *
  * Components are added here as subsequent tasks are completed.
  */
-const components = [ghostty, starship, tmux, claudeCode]
+const components = [neovim, tmux, ghostty, starship, vscode, claudeCode, userstyles]
 
 async function main() {
   printBanner()
