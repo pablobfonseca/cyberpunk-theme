@@ -116,6 +116,7 @@ set -g @cyberpunk_pane_borders "yes"       # neon pane borders
 set -g @cyberpunk_popup "yes"              # popup styling
 set -g @cyberpunk_messages "yes"           # message/mode/clock styling
 set -g @cyberpunk_status_background "theme" # theme | none (transparent)
+set -g @cyberpunk_claude_sessions "no"     # claude-session-manager widget
 ```
 
 **Built-in Glitch Statusbar:**
@@ -127,7 +128,7 @@ The theme ships a full statusbar out of the box — no manual configuration need
 ```
 
 - **Left:** session name (prefix-aware), current directory, git branch + dirty state, zoom indicator
-- **Right:** online/offline, CPU % with color-coded bar, memory usage, battery %
+- **Right:** Claude sessions (opt-in), online/offline, CPU % with color-coded bar, memory usage, battery %
 - **Center:** windows with thin separators, active window highlighted
 - All gadgets color-shift at warning thresholds (high CPU, low battery, offline)
 - Git info and its separator auto-hide when not in a repo
