@@ -143,6 +143,7 @@ To override, set your own `status-left`/`status-right` after loading the theme.
 - 🎯 **Neon pane borders** - active panes highlighted with cyan
 - 🎨 **Three variants** - storm (default), night (muted), neon (max saturation)
 - 🔧 **Toggleable features** - enable/disable individual styling features
+- 🤖 **Claude sessions widget** - opt-in status bar segment via [claude-session-manager](https://github.com/pablobfonseca/claude-session-manager) — shows sessions needing approval, actively working, or idle
 
 ### Ghostty Theme
 
