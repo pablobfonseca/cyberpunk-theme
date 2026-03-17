@@ -39,7 +39,7 @@ local storm = {
   number = "#bf00ff",
   boolean = "#bf00ff",
   float = "#bf00ff",
-  identifier = "#e0e6f0",
+  identifier = "#b0c4e8",
   function_name = "#00ffff",
   statement = "#ff007f",
   conditional = "#ff8800",
@@ -60,7 +60,7 @@ local storm = {
   special = "#ffff00",
   special_char = "#ff8800",
   tag = "#ff007f",
-  delimiter = "#e0e6f0",
+  delimiter = "#5a6a80",
   special_comment = "#00ffff",
   debug = "#ff007f",
 
@@ -153,6 +153,8 @@ local night = vim.tbl_deep_extend("force", vim.deepcopy(storm), {
   tag = "#cc0066",
   special_comment = "#00cccc",
   debug = "#cc0066",
+  identifier = "#a0b4d8",
+  delimiter = "#4a5a70",
 
   border = "#1e2a35",
   cursor = "#00cccc",
@@ -243,6 +245,8 @@ local neon = vim.tbl_deep_extend("force", vim.deepcopy(storm), {
   tag = "#ff0099",
   special_comment = "#00ffff",
   debug = "#ff0099",
+  identifier = "#c0d4f0",
+  delimiter = "#5a6a7a",
 
   border = "#1a2233",
   cursor = "#00ffff",
