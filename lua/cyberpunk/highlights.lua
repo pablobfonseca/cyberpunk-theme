@@ -154,11 +154,19 @@ function highlights.setup(colors, config)
       ["@method.call"] = { fg = colors.function_name },
       ["@constructor"] = { fg = colors.neon_blue },
 
-      -- Keywords
+      -- Keywords (includes modern nvim 0.10+ capture names)
       ["@keyword"] = { fg = colors.keyword, style = config.styles.keywords },
       ["@keyword.function"] = { fg = colors.neon_pink, style = config.styles.keywords },
       ["@keyword.operator"] = { fg = colors.operator, style = config.styles.keywords },
       ["@keyword.return"] = { fg = colors.neon_pink, style = config.styles.keywords },
+      ["@keyword.modifier"] = { fg = colors.neon_pink, style = config.styles.keywords },
+      ["@keyword.type"] = { fg = colors.neon_pink, style = config.styles.keywords },
+      ["@keyword.coroutine"] = { fg = colors.neon_pink, style = config.styles.keywords },
+      ["@keyword.import"] = { fg = colors.include, style = config.styles.keywords },
+      ["@keyword.export"] = { fg = colors.include, style = config.styles.keywords },
+      ["@keyword.conditional"] = { fg = colors.conditional, style = config.styles.keywords },
+      ["@keyword.repeat"] = { fg = colors.repeat_key, style = config.styles.keywords },
+      ["@keyword.exception"] = { fg = colors.exception, style = config.styles.keywords },
       ["@conditional"] = { fg = colors.conditional, style = config.styles.keywords },
       ["@repeat"] = { fg = colors.repeat_key, style = config.styles.keywords },
       ["@label"] = { fg = colors.label },
