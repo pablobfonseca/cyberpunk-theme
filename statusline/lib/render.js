@@ -3,6 +3,7 @@
 const { execSync } = require('node:child_process');
 const fs = require('node:fs');
 const path = require('node:path');
+const os = require('node:os');
 
 // ---------------------------------------------------------------------------
 // ANSI helpers
@@ -219,6 +220,31 @@ function renderStatusline(data, palette, options = {}) {
   // Context window segment
   const usedPct = data.context_window?.used_percentage ?? 0;
   const ctxSegment = contextBar(usedPct, palette);
+
+  /**
+   * Bridge file for external context monitor hooks.
+   * Written to /tmp/claude-ctx-<sessionId>.json on each render tick.
+   * Silent fail — a write error must never break the statusline.
+   */
+  const sessionId = data.session_id;
+  if (sessionId) {
+    try {
+      const remainingPercentage =
+        data.context_window?.remaining_percentage ?? (100 - usedPct);
+      fs.writeFileSync(
+        path.join(os.tmpdir(), `claude-ctx-${sessionId}.json`),
+        JSON.stringify({
+          session_id: sessionId,
+          remaining_percentage: remainingPercentage,
+          used_pct: usedPct,
+          timestamp: Math.floor(Date.now() / 1000),
+        }),
+        'utf8',
+      );
+    } catch {
+      // Non-fatal: bridge write failure is silently ignored.
+    }
+  }
 
   // Token count segment
   const inputTokens = data.context_window?.total_input_tokens ?? 0;
