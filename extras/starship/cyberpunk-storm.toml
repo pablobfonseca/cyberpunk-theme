@@ -3,7 +3,7 @@
 palette = 'cyberpunk_storm'
 
 format = """
-$username[◆](fg_dim) $directory$git_branch$git_status$c$rust$golang$python$nodejs$lua$java$ruby$php$elixir$swift$kotlin$zig$docker_context$conda$cmd_duration\n$character"""
+$username[◆](fg_dim) $directory$git_branch$git_commit$git_status$c$rust$golang$python$nodejs$lua$java$ruby$php$elixir$swift$kotlin$zig$docker_context$conda$cmd_duration\n$character"""
 
 add_newline = true
 
@@ -82,6 +82,12 @@ truncation_length = 1
 symbol = ""
 style = "bold neon_purple"
 format = '[$symbol $branch]($style) '
+
+[git_commit]
+tag_disabled = false
+tag_symbol = ' 󰓹 '
+style = "bold neon_green"
+format = '[$tag]($style) '
 
 [git_status]
 style = "comment"
