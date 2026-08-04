@@ -312,6 +312,14 @@ function highlights.setup(colors, config)
     LspSignatureHelpBorder = { fg = colors.neon_pink },
   })
 
+  -- Filetype syntax overrides — fix surprising default links from regex
+  -- syntax files (e.g. yats.vim) when treesitter has no capture for a span.
+  groups = vim.tbl_deep_extend("force", groups, {
+    -- yats.vim links typescriptFuncCallArg to PreProc (purple); align it
+    -- with treesitter's @variable so args render as identifier color.
+    typescriptFuncCallArg = { fg = colors.identifier },
+  })
+
   -- Load plugin-specific highlights
   local plugin_highlights = require('cyberpunk.plugins')
   groups = vim.tbl_deep_extend("force", groups, plugin_highlights.setup(colors, config))
