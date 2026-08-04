@@ -5,6 +5,8 @@ const fs = require('node:fs');
 const path = require('node:path');
 const os = require('node:os');
 
+const { nextRun } = require('./cron.js');
+
 // ---------------------------------------------------------------------------
 // ANSI helpers
 // ---------------------------------------------------------------------------
@@ -151,7 +153,7 @@ function formatTokenCount(count) {
 
 /**
  * Format a duration in milliseconds into a compact human-readable string.
- * e.g. 45000 → "45s", 74500 → "1m14s", 500 → "<1s"
+ * e.g. 45000 → "45s", 74500 → "1m14s", 32000000 → "8h53m", 500 → "<1s"
  * @param {number} ms
  * @returns {string}
  */
@@ -160,8 +162,58 @@ function formatDuration(ms) {
   const totalSecs = Math.floor(ms / 1_000);
   if (totalSecs < 60) return `${totalSecs}s`;
   const mins = Math.floor(totalSecs / 60);
-  const secs = totalSecs % 60;
-  return `${mins}m${String(secs).padStart(2, '0')}s`;
+  if (mins < 60) return `${mins}m${String(totalSecs % 60).padStart(2, '0')}s`;
+  const hours = Math.floor(mins / 60);
+  return `${hours}h${String(mins % 60).padStart(2, '0')}m`;
+}
+
+// ---------------------------------------------------------------------------
+// Cron countdown
+// ---------------------------------------------------------------------------
+
+const CRON_MAX_AGE_MS = 7 * 24 * 60 * 60 * 1_000;
+
+/**
+ * Read the per-session cron bridge file (written by the cron-bridge hook on
+ * CronCreate/CronDelete) and compute the soonest upcoming fire time.
+ *
+ * Jobs are session-only in Claude Code, so the bridge mirrors that: recurring
+ * jobs auto-expire after 7 days, one-shots are dropped once their pinned time
+ * has passed.
+ *
+ * @param {string} sessionId
+ * @returns {number | null}  ms until the next fire, or null when none
+ */
+function msUntilNextCron(sessionId) {
+  let jobs;
+  try {
+    const raw = fs.readFileSync(
+      path.join(os.tmpdir(), `claude-cron-${sessionId}.json`),
+      'utf8',
+    );
+    jobs = JSON.parse(raw).jobs;
+  } catch {
+    return null;
+  }
+  if (!Array.isArray(jobs)) return null;
+
+  const now = new Date();
+  let soonest = null;
+  for (const job of jobs) {
+    if (typeof job?.cron !== 'string') continue;
+    const createdAt = new Date(job.created_at ?? 0);
+    if (job.recurring === false) {
+      const fireTime = nextRun(job.cron, createdAt);
+      if (!fireTime || fireTime <= now) continue;
+      if (soonest === null || fireTime < soonest) soonest = fireTime;
+    } else {
+      if (now - createdAt > CRON_MAX_AGE_MS) continue;
+      const fireTime = nextRun(job.cron, now);
+      if (!fireTime) continue;
+      if (soonest === null || fireTime < soonest) soonest = fireTime;
+    }
+  }
+  return soonest === null ? null : soonest - now;
 }
 
 // ---------------------------------------------------------------------------
@@ -191,6 +243,7 @@ function formatDuration(ms) {
  * @property {boolean} [duration]  Show session duration segment (default: false)
  * @property {boolean} [cache]     Show cache hit ratio segment (default: false)
  * @property {boolean} [vimMode]   Show vim mode segment (default: false)
+ * @property {boolean} [cron]      Show next-cron countdown segment (default: false)
  */
 
 /**
@@ -306,6 +359,19 @@ function renderStatusline(data, palette, options = {}) {
     }
   }
 
+  // Cron countdown segment (opt-in via --cron flag)
+  let cronSegment = null;
+  if (options.cron && sessionId) {
+    const msUntil = msUntilNextCron(sessionId);
+    if (msUntil != null) {
+      const cronColor =
+        msUntil < 60_000 ? palette.neon_pink :
+        msUntil < 300_000 ? palette.neon_yellow :
+        palette.neon_cyan;
+      cronSegment = color(`⏰ ${formatDuration(msUntil)}`, cronColor);
+    }
+  }
+
   // Git branch segment (opt-in via --git flag)
   let branchSegment = null;
   if (options.git) {
@@ -327,6 +393,7 @@ function renderStatusline(data, palette, options = {}) {
     branchSegment,
     durationSegment,
     cacheSegment,
+    cronSegment,
   ].filter(Boolean);
 
   return segments.join(sep);

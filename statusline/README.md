@@ -35,6 +35,7 @@ Add to `~/.claude/settings.json`:
 | `--duration` | Show session wall time and API wait time |
 | `--cache` | Show prompt cache hit ratio |
 | `--vim-mode` | Show Claude's vim mode (NORMAL/INSERT) |
+| `--cron` | Show countdown to the next Claude Code cron job (see below) |
 
 All options are disabled by default. Combine as needed:
 
@@ -63,6 +64,38 @@ Git branch is cached for 5 seconds to avoid performance overhead.
 | Git branch | neon blue | Only with `--git` flag |
 | Duration | neon cyan + dim API time | Only with `--duration` flag |
 | Cache ratio | green (≥70%) / yellow (≥40%) / orange (<40%) | Only with `--cache` flag |
+| Cron countdown | cyan / yellow (<5m) / pink (<1m) | Only with `--cron` flag, hidden when no jobs |
+
+## Cron countdown
+
+Claude Code cron jobs (`CronCreate`) are session-only and in-memory, so the
+statusline cannot see them directly. `--cron` reads a per-session bridge file
+(`<tmpdir>/claude-cron-<session_id>.json`) that a `PostToolUse` hook writes
+whenever Claude creates or deletes a cron job. The hook script ships with this
+package as [`hooks/cron-bridge.js`](hooks/cron-bridge.js); copy it somewhere
+stable (e.g. `~/.claude/hooks/`) and wire it up:
+
+```json
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "CronCreate|CronDelete",
+        "hooks": [{ "type": "command", "command": "node ~/.claude/hooks/cron-bridge.js" }]
+      }
+    ],
+    "SessionStart": [
+      { "matcher": "", "hooks": [{ "type": "command", "command": "node ~/.claude/hooks/cron-bridge.js" }] }
+    ],
+    "SessionEnd": [
+      { "matcher": "", "hooks": [{ "type": "command", "command": "node ~/.claude/hooks/cron-bridge.js" }] }
+    ]
+  }
+}
+```
+
+The `SessionStart`/`SessionEnd` entries delete the bridge file, since cron jobs
+never survive the session. Without the hook, `--cron` simply renders nothing.
 
 ## Requirements
 

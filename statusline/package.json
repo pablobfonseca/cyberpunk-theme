@@ -8,12 +8,16 @@
     "url": "git+https://github.com/pablobfonseca/cyberpunk-theme.git",
     "directory": "statusline"
   },
+  "scripts": {
+    "test": "node --test"
+  },
   "bin": {
     "claude-cyberpunk-powerline": "bin/cli.js"
   },
   "files": [
     "bin/",
-    "lib/"
+    "lib/",
+    "hooks/"
   ],
   "engines": {
     "node": ">=18"
