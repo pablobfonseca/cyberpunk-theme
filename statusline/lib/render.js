@@ -234,6 +234,7 @@ function msUntilNextCron(sessionId) {
  * @property {{ total_cost_usd?: number, total_lines_added?: number, total_lines_removed?: number, total_duration_ms?: number, total_api_duration_ms?: number }} [cost]
  * @property {{ current_dir?: string, project_dir?: string }} [workspace]
  * @property {{ mode?: string }} [vim]
+ * @property {{ level?: string }} [effort]
  * @property {string} [session_id]
  */
 
@@ -244,6 +245,7 @@ function msUntilNextCron(sessionId) {
  * @property {boolean} [cache]     Show cache hit ratio segment (default: false)
  * @property {boolean} [vimMode]   Show vim mode segment (default: false)
  * @property {boolean} [cron]      Show next-cron countdown segment (default: false)
+ * @property {boolean} [effort]    Show thinking effort segment (default: false)
  */
 
 /**
@@ -359,6 +361,20 @@ function renderStatusline(data, palette, options = {}) {
     }
   }
 
+  // Thinking effort segment (opt-in via --effort flag; the field is only
+  // present when the model supports the reasoning effort parameter)
+  let effortSegment = null;
+  if (options.effort && data.effort?.level) {
+    const level = data.effort.level;
+    const effortColor =
+      level === 'low' ? palette.neon_cyan :
+      level === 'medium' ? palette.neon_green :
+      level === 'high' ? palette.neon_yellow :
+      level === 'xhigh' ? palette.neon_orange :
+      palette.neon_pink;
+    effortSegment = color(`\u{1f9e0} ${level.toUpperCase()}`, effortColor);
+  }
+
   // Cron countdown segment (opt-in via --cron flag)
   let cronSegment = null;
   if (options.cron && sessionId) {
@@ -386,6 +402,7 @@ function renderStatusline(data, palette, options = {}) {
     vimModeSegment,
     projectSegment,
     modelSegment,
+    effortSegment,
     ctxSegment,
     tokenSegment,
     costSegment,

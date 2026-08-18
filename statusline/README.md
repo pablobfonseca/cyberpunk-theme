@@ -36,6 +36,7 @@ Add to `~/.claude/settings.json`:
 | `--cache` | Show prompt cache hit ratio |
 | `--vim-mode` | Show Claude's vim mode (NORMAL/INSERT) |
 | `--cron` | Show countdown to the next Claude Code cron job (see below) |
+| `--effort` | Show current thinking effort level (low/medium/high/xhigh/max) |
 
 All options are disabled by default. Combine as needed:
 
@@ -65,6 +66,7 @@ Git branch is cached for 5 seconds to avoid performance overhead.
 | Duration | neon cyan + dim API time | Only with `--duration` flag |
 | Cache ratio | green (≥70%) / yellow (≥40%) / orange (<40%) | Only with `--cache` flag |
 | Cron countdown | cyan / yellow (<5m) / pink (<1m) | Only with `--cron` flag, hidden when no jobs |
+| Thinking effort | cyan (low) → green → yellow → orange → pink (max) | Only with `--effort` flag, hidden when the model has no effort control |
 
 ## Cron countdown
 

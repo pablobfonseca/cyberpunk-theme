@@ -40,6 +40,7 @@ const showDuration = args.includes('--duration');
 const showCache = args.includes('--cache');
 const showVimMode = args.includes('--vim-mode');
 const showCron = args.includes('--cron');
+const showEffort = args.includes('--effort');
 const palette = getPalette(style);
 
 // ---------------------------------------------------------------------------
@@ -73,6 +74,7 @@ process.stdin.on('end', () => {
       cache: showCache,
       vimMode: showVimMode,
       cron: showCron,
+      effort: showEffort,
     }) + '\n',
   );
 });
