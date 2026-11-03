@@ -3,9 +3,13 @@
 # Output: tmux format string with @thm_* color references
 
 get_cpu_mac() {
-  # iostat reads kernel counters; top walks every process and thread, which
-  # takes seconds on a loaded machine. Second report is the last 1s sample.
-  iostat -n 0 -c 2 -w 1 2>/dev/null | awk 'END { printf "%.0f", $1 + $2 }'
+  # Must return well under 1s: tmux re-runs a #() job the moment it ends if it
+  # ended in a later second than it started, so a slow reader loops nonstop.
+  # top walks every thread (seconds under load); iostat needs a 1s sample.
+  ps -A -o %cpu= 2>/dev/null | awk -v n="$(sysctl -n hw.ncpu)" '
+    { s += $1 }
+    END { printf "%.0f", s / n }
+  '
 }
 
 get_cpu_linux() {
