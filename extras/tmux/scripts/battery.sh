@@ -7,10 +7,9 @@ get_battery_mac() {
       gsub(/;/, "")
       gsub(/%/, "")
       pct = $3
-      status = "discharging"
-      if (/charging/)    status = "charging"
-      if (/charged/)     status = "full"
-      if (/AC attached/) status = "charging"
+      status = "charging"
+      if (/discharging/)                   status = "discharging"
+      else if (/charged|not charging/)     status = "full"
       print pct, status
     }
   '
