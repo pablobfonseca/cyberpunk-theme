@@ -3,10 +3,9 @@
 # Output: tmux format string with @thm_* color references
 
 get_cpu_mac() {
-  top -l1 -n0 2>/dev/null | awk '/CPU usage/ {
-    gsub(/%/, "")
-    printf "%.0f", $3 + $5
-  }'
+  # iostat reads kernel counters; top walks every process and thread, which
+  # takes seconds on a loaded machine. Second report is the last 1s sample.
+  iostat -n 0 -c 2 -w 1 2>/dev/null | awk 'END { printf "%.0f", $1 + $2 }'
 }
 
 get_cpu_linux() {
